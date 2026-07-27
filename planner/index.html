@@ -1,0 +1,1481 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planner Financeiro Interativo 2026/27</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --panel-2:#f0f2f5; --line:#dfe3e8;
+  --txt:#16181d; --txt-2:#5b6472; --accent:#1f7a5a; --accent-2:#2aa179;
+  --warn:#b5721a; --bad:#b03636; --good:#1f7a5a;
+  --c1:#2f6f9f; --c2:#1f7a5a; --c3:#a8632c; --c4:#7a4f9c; --c5:#b03636;
+  --c6:#3f8f8a; --c7:#8a7326; --c8:#6b6f7a; --c9:#95446f;
+  --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#101216; --panel:#171a20; --panel-2:#1e222a; --line:#2b303a;
+    --txt:#e8eaee; --txt-2:#98a1b0; --accent:#4bbd92; --accent-2:#2aa179;
+    --warn:#e0a355; --bad:#e57373; --good:#4bbd92;
+    --c1:#6aa9dd; --c2:#4bbd92; --c3:#dd9a5f; --c4:#b18cd9;
+    --c5:#e57373; --c6:#5fc5bf; --c7:#d3bb5c; --c8:#9aa2b1; --c9:#d97fae;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#f6f7f9; --panel:#ffffff; --panel-2:#f0f2f5; --line:#dfe3e8;
+  --txt:#16181d; --txt-2:#5b6472; --accent:#1f7a5a; --accent-2:#2aa179;
+  --warn:#b5721a; --bad:#b03636; --good:#1f7a5a;
+  --c1:#2f6f9f; --c2:#1f7a5a; --c3:#a8632c; --c4:#7a4f9c; --c5:#b03636;
+  --c6:#3f8f8a; --c7:#8a7326; --c8:#6b6f7a; --c9:#95446f;
+  --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.04);
+}
+:root[data-theme="dark"]{
+  --bg:#101216; --panel:#171a20; --panel-2:#1e222a; --line:#2b303a;
+  --txt:#e8eaee; --txt-2:#98a1b0; --accent:#4bbd92; --accent-2:#2aa179;
+  --warn:#e0a355; --bad:#e57373; --good:#4bbd92;
+  --c1:#6aa9dd; --c2:#4bbd92; --c3:#dd9a5f; --c4:#b18cd9;
+  --c5:#e57373; --c6:#5fc5bf; --c7:#d3bb5c; --c8:#9aa2b1; --c9:#d97fae;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+h1,h2,h3{line-height:1.25;margin:0}
+a{color:var(--accent)}
+
+/* ---------- layout ---------- */
+.topo{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line)}
+.topo-in{max-width:1120px;margin:0 auto;padding:12px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.marca{font-weight:700;letter-spacing:.2px}
+.marca small{display:block;font-weight:400;font-size:11.5px;color:var(--txt-2);letter-spacing:.4px;text-transform:uppercase}
+.topo-acoes{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+nav{background:var(--panel);border-bottom:1px solid var(--line);overflow-x:auto}
+nav .nav-in{max-width:1120px;margin:0 auto;padding:0 12px;display:flex;gap:2px;min-width:max-content}
+nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--txt-2);
+  padding:11px 13px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit}
+nav button:hover{color:var(--txt)}
+nav button[aria-current="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+main{max-width:1120px;margin:0 auto;padding:22px 18px 80px}
+section[hidden]{display:none}
+.sec-cab{margin-bottom:18px}
+.sec-cab h2{font-size:21px}
+.sec-cab p{margin:5px 0 0;color:var(--txt-2);font-size:14px;max-width:70ch}
+
+/* ---------- cartões ---------- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;box-shadow:var(--shadow);margin-bottom:16px}
+.card > h3{font-size:15px;letter-spacing:.3px;text-transform:uppercase;color:var(--txt-2);margin-bottom:12px}
+.card .dica{font-size:13px;color:var(--txt-2);margin:10px 0 0}
+.grade{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+
+/* ---------- kpi ---------- */
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.kpi .rot{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--txt-2)}
+.kpi .val{font-size:23px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
+.kpi .sub{font-size:12.5px;color:var(--txt-2);margin-top:3px}
+.pos{color:var(--good)} .neg{color:var(--bad)} .att{color:var(--warn)}
+
+/* ---------- formulários ---------- */
+label{display:block;font-size:12.5px;color:var(--txt-2);margin-bottom:4px;font-weight:600}
+input,select,textarea{width:100%;background:var(--panel-2);color:var(--txt);border:1px solid var(--line);
+  border-radius:7px;padding:8px 10px;font-size:14px;font-family:inherit;font-variant-numeric:tabular-nums}
+input:focus,select,textarea:focus{outline:2px solid var(--accent-2);outline-offset:-1px}
+textarea{min-height:64px;resize:vertical;font-variant-numeric:normal}
+input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent-2);vertical-align:-3px}
+input[type=range]{padding:0;accent-color:var(--accent-2)}
+.campo{margin-bottom:12px}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:7px;padding:8px 14px;
+  font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--accent-2)}
+.btn.sec{background:var(--panel-2);color:var(--txt);border:1px solid var(--line)}
+.btn.sec:hover{background:var(--line)}
+.btn.mini{padding:4px 9px;font-size:12px}
+
+/* ---------- tabelas ---------- */
+.tab-rol{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px}
+#tbCategorias{min-width:380px}
+#tbDividas td:first-child input,#tbContas td:first-child input,#tbAssinaturas td:first-child input{min-width:210px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line)}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--txt-2);font-weight:700}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--panel-2)}
+tfoot td{font-weight:700;border-top:2px solid var(--line);border-bottom:0}
+table input,table select{padding:5px 7px;font-size:13px;background:transparent;border-color:transparent}
+table input:hover,table select:hover{border-color:var(--line);background:var(--panel-2)}
+table input.num{text-align:right}
+.risc{text-decoration:line-through;opacity:.5}
+
+/* ---------- diversos ---------- */
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  padding:2px 8px;border-radius:20px;background:var(--panel-2);color:var(--txt-2);border:1px solid var(--line)}
+.tag.ok{color:var(--good);border-color:var(--good)}
+.tag.al{color:var(--warn);border-color:var(--warn)}
+.tag.ru{color:var(--bad);border-color:var(--bad)}
+.barra{height:9px;border-radius:6px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
+.barra > i{display:block;height:100%;background:var(--accent-2)}
+.lista-check{list-style:none;padding:0;margin:0}
+.lista-check li{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.lista-check li:last-child{border-bottom:0}
+.aviso{background:var(--panel-2);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;
+  padding:11px 14px;font-size:13.5px;color:var(--txt-2);margin:12px 0}
+.aviso strong{color:var(--txt)}
+.cita{font-style:italic;color:var(--txt-2);font-size:13.5px;border-left:2px solid var(--line);padding-left:12px;margin:12px 0}
+.svg-rol{overflow-x:auto}
+.svg-rol svg{max-width:none}
+svg{display:block;max-width:100%}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--txt-2);margin-top:10px}
+.leg span{display:flex;gap:5px;align-items:center}
+.leg i{width:10px;height:10px;border-radius:2px;display:block}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.salvo{font-size:12px;color:var(--txt-2);margin-left:6px}
+@media print{
+  nav,.topo-acoes,.btn{display:none!important}
+  section[hidden]{display:block!important}
+  .card{break-inside:avoid;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-in">
+    <div class="marca">Planner Financeiro Interativo
+      <small id="periodoTopo">Base real: extrato de 12 meses</small></div>
+    <div class="topo-acoes">
+      <button class="btn sec" id="btTema">Tema</button>
+      <button class="btn sec" id="btExportar">Exportar dados</button>
+      <button class="btn sec" id="btImportar">Importar</button>
+      <input type="file" id="arqImport" accept="application/json" hidden>
+      <button class="btn sec" id="btImprimir">Imprimir / PDF</button>
+    </div>
+  </div>
+</header>
+
+<nav><div class="nav-in" id="navBar"></div></nav>
+
+<main>
+
+<!-- ============ 1. PAINEL ============ -->
+<section id="sec-painel">
+  <div class="sec-cab">
+    <h2>Painel — onde você está hoje</h2>
+    <p>Tudo nesta aba foi calculado a partir das transações reais da planilha. É o seu diagnóstico
+       de partida: nenhum número aqui foi estimado à mão.</p>
+  </div>
+
+  <div class="grade g3" id="kpisTopo"></div>
+
+  <div class="card">
+    <h3>Entradas × saídas mês a mês</h3>
+    <div class="svg-rol" id="graficoMeses"></div>
+    <div class="leg">
+      <span><i style="background:var(--c2)"></i>Entrou</span>
+      <span><i style="background:var(--c5)"></i>Saiu</span>
+      <span><i style="background:var(--c8)"></i>Saldo do mês</span>
+    </div>
+    <p class="dica" id="notaMeses"></p>
+  </div>
+
+  <div class="grade g2">
+    <div class="card">
+      <h3>Para onde vai o dinheiro (média dos últimos 6 meses)</h3>
+      <div id="graficoGrupos"></div>
+      <p class="dica">Média mensal por grupo de gasto. É esta média que já vem pré-preenchida
+         na coluna <em>Previsto</em> do orçamento.</p>
+    </div>
+    <div class="card">
+      <h3>Maiores categorias do ano</h3>
+      <div class="tab-rol">
+        <table id="tbCategorias"><thead><tr>
+          <th>Categoria</th><th class="num">Total 12m</th><th class="num">Média/mês</th><th class="num">Nº</th>
+        </tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Leitura do diagnóstico</h3>
+    <div id="leituraDiag"></div>
+  </div>
+</section>
+
+<!-- ============ 2. DIAGNÓSTICO ============ -->
+<section id="sec-diagnostico" hidden>
+  <div class="sec-cab">
+    <h2>Meu ponto de partida</h2>
+    <p>Baseado no <em>Guia de Diagnóstico Financeiro</em>. Preencha uma vez e refaça a cada 3 meses
+       para ver a evolução.</p>
+  </div>
+
+  <div class="card">
+    <h3>De onde eu parto</h3>
+    <div class="grade g3">
+      <div class="campo"><label>Nome</label><input data-s="d.nome"></div>
+      <div class="campo"><label>Data de hoje</label><input type="date" data-s="d.data"></div>
+      <div class="campo"><label>Renda líquida mensal (R$)</label><input type="number" step="0.01" data-s="d.renda" data-calc></div>
+      <div class="campo"><label>Renda total da família (R$)</label><input type="number" step="0.01" data-s="d.rendaFam"></div>
+      <div class="campo"><label>Total que devo hoje (R$)</label><input type="number" step="0.01" data-s="d.divida" data-calc></div>
+      <div class="campo"><label>Dinheiro guardado/investido (R$)</label><input type="number" step="0.01" data-s="d.guardado" data-calc></div>
+    </div>
+    <div class="campo"><label>Meu maior sonho financeiro agora</label><textarea data-s="d.sonho"></textarea></div>
+    <div class="campo"><label>O que mais me atrapalha com o dinheiro</label><textarea data-s="d.atrapalha"></textarea></div>
+    <div class="grade g3" id="kpisPatrimonio"></div>
+  </div>
+
+  <div class="grade g2">
+    <div class="card">
+      <h3>Estou na corrida dos ratos?</h3>
+      <ul class="lista-check" id="listaRatos"></ul>
+      <p id="resRatos" style="margin:14px 0 0"></p>
+    </div>
+    <div class="card">
+      <h3>Meu score financeiro (1 a 5 por área)</h3>
+      <div id="listaScore"></div>
+      <p id="resScore" style="margin:14px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Distribuição ideal × a sua distribuição real</h3>
+    <div class="tab-rol">
+      <table id="tbDistrib"><thead><tr>
+        <th>Uso do dinheiro</th><th class="num">Ideal</th><th class="num">Você hoje</th>
+        <th class="num">R$/mês hoje</th><th>Situação</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+    <p class="dica">"Você hoje" compara a sua média real de gasto dos últimos 6 meses com a renda total da família informada acima.</p>
+  </div>
+
+  <div class="card">
+    <h3>Minhas 3 ações imediatas</h3>
+    <p class="dica" style="margin:0 0 12px">Uma ação que você vai fazer vale mais do que dez que ficam no papel.</p>
+    <div class="grade g3" id="acoesImediatas"></div>
+  </div>
+</section>
+
+<!-- ============ 3. ORÇAMENTO ============ -->
+<section id="sec-orcamento" hidden>
+  <div class="sec-cab">
+    <h2>Orçamento mensal — previsto × realizado</h2>
+    <p>O <em>Previsto</em> já vem preenchido com a sua média real dos últimos 6 meses. Ajuste as metas,
+       registre o que aconteceu e veja a diferença na hora.</p>
+  </div>
+
+  <div class="card">
+    <div class="grade g4" style="align-items:end">
+      <div class="campo" style="margin:0"><label>Mês do planner</label><select id="selMes"></select></div>
+      <div class="campo" style="margin:0"><label>Foco principal do mês</label><input data-mes="foco"></div>
+      <div class="campo" style="margin:0"><label>Quero guardar (R$)</label><input type="number" step="0.01" data-mes="metaGuardar" data-calc></div>
+      <div class="campo" style="margin:0"><label>Quero cortar de gastos (R$)</label><input type="number" step="0.01" data-mes="metaCortar"></div>
+    </div>
+  </div>
+
+  <div class="grade">
+    <div class="card">
+      <h3>De onde vem o dinheiro</h3>
+      <div class="tab-rol"><table id="tbReceitas"><thead><tr>
+        <th>Fonte</th><th class="num">Previsto</th><th class="num">Aconteceu</th><th class="num">Diferença</th>
+      </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    </div>
+    <div class="card">
+      <h3>Para onde vai o dinheiro</h3>
+      <div class="tab-rol"><table id="tbDespesas"><thead><tr>
+        <th>Grupo</th><th class="num">Previsto</th><th class="num">Aconteceu</th><th class="num">Diferença</th>
+      </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    </div>
+  </div>
+
+  <div class="grade g4" id="kpisOrcamento"></div>
+</section>
+
+<!-- ============ 4. CONTAS E ASSINATURAS ============ -->
+<section id="sec-contas" hidden>
+  <div class="sec-cab">
+    <h2>Contas fixas e assinaturas</h2>
+    <p>Lista montada a partir dos débitos que se repetiram em pelo menos 5 meses do seu extrato.
+       Marque o que já pagou e decida o que vale manter.</p>
+  </div>
+
+  <div class="card">
+    <h3>Contas do mês <span id="rotMesContas" class="tag"></span></h3>
+    <div class="tab-rol"><table id="tbContas"><thead><tr>
+      <th>Conta / serviço</th><th class="num">Valor (R$)</th><th class="num">Vence dia</th><th>Paguei?</th><th>Observações</th><th></th>
+    </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    <p style="margin-top:12px"><button class="btn sec mini" id="btAddConta">+ Adicionar conta</button></p>
+  </div>
+
+  <div class="card">
+    <h3>Assinaturas — vale a pena manter?</h3>
+    <div class="tab-rol"><table id="tbAssinaturas"><thead><tr>
+      <th>Serviço</th><th class="num">Valor/mês</th><th>Uso muito?</th><th>Vou cancelar</th><th>O que vou fazer</th><th></th>
+    </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    <p style="margin-top:12px"><button class="btn sec mini" id="btAddAssin">+ Adicionar assinatura</button></p>
+    <div class="aviso" id="avisoAssin"></div>
+  </div>
+</section>
+
+<!-- ============ 5. DÍVIDAS ============ -->
+<section id="sec-dividas" hidden>
+  <div class="sec-cab">
+    <h2>Saia do vermelho — plano de quitação</h2>
+    <p>Liste tudo o que deve. O plano se reordena sozinho conforme o método escolhido.</p>
+  </div>
+
+  <div class="card">
+    <h3>Mapa das minhas dívidas</h3>
+    <div class="tab-rol"><table id="tbDividas"><thead><tr>
+      <th>Credor / o que é</th><th class="num">Saldo (R$)</th><th class="num">Parcela (R$)</th>
+      <th class="num">Juros %/mês</th><th>Quitada</th><th></th>
+    </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    <p style="margin-top:12px"><button class="btn sec mini" id="btAddDivida">+ Adicionar dívida</button></p>
+    <p class="dica">Pré-carregado com os parcelamentos que ainda estavam abertos no fim do extrato.
+       Confirme os saldos no app do banco antes de decidir.</p>
+  </div>
+
+  <div class="grade">
+    <div class="card">
+      <h3>Método e ordem de ataque</h3>
+      <div class="dupla" style="margin-bottom:14px">
+        <div class="campo" style="margin:0"><label>Método</label>
+          <select data-s="dv.metodo" data-calc>
+            <option value="bola">Bola de neve — menor saldo primeiro (mais motivador)</option>
+            <option value="aval">Avalanche — maior juro primeiro (economiza mais)</option>
+          </select></div>
+        <div class="campo" style="margin:0"><label>Valor extra por mês (R$)</label>
+          <input type="number" step="0.01" data-s="dv.extra" data-calc></div>
+      </div>
+      <div class="tab-rol"><table id="tbPlano"><thead><tr>
+        <th class="num">#</th><th>Dívida</th><th class="num">Saldo</th><th class="num">Juros</th><th>Previsão de quitação</th>
+      </tr></thead><tbody></tbody></table></div>
+      <p class="dica">Previsão simples: saldo ÷ (parcela + extra disponível quando chegar a vez dela),
+         considerando o efeito bola de neve das parcelas já liberadas.</p>
+    </div>
+    <div class="card">
+      <h3>Termômetro</h3>
+      <div class="grade g4" id="kpisDividas"></div>
+      <div id="graficoDividas" style="margin-top:14px"></div>
+      <div class="cita">"Antes de fazer seu dinheiro crescer, pare de deixá-lo encolher."<br>
+        — O Homem Mais Rico da Babilônia</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Hábitos que impedem novas dívidas</h3>
+    <ul class="lista-check" id="listaHabitos"></ul>
+  </div>
+</section>
+
+<!-- ============ 6. RESERVA E 10% ============ -->
+<section id="sec-reserva" hidden>
+  <div class="sec-cab">
+    <h2>Reserva de emergência e a regra dos 10%</h2>
+    <p>O colchão que evita que qualquer imprevisto vire dívida nova.</p>
+  </div>
+
+  <div class="grade g2">
+    <div class="card">
+      <h3>Minha meta de reserva</h3>
+      <div class="dupla">
+        <div class="campo"><label>Gasto mensal de referência (R$)</label>
+          <input type="number" step="0.01" data-s="r.gasto" data-calc>
+          <p class="dica" style="margin:5px 0 0">Já vem com o seu custo de vida essencial
+             (moradia + transporte + alimentação + saúde). Suba o valor se quiser uma reserva mais folgada.</p></div>
+        <div class="campo"><label>Quanto já tenho guardado (R$)</label>
+          <input type="number" step="0.01" data-s="r.tenho" data-calc></div>
+        <div class="campo"><label>Nível que quero atingir</label>
+          <select data-s="r.nivel" data-calc>
+            <option value="1">Nível 1 — 1 mês de gastos (mínimo)</option>
+            <option value="3" selected>Nível 2 — 3 meses (seguro)</option>
+            <option value="6">Nível 3 — 6 meses (tranquilo)</option>
+          </select></div>
+        <div class="campo"><label>Quanto consigo guardar por mês (R$)</label>
+          <input type="number" step="0.01" data-s="r.porMes" data-calc></div>
+      </div>
+      <div id="resReserva"></div>
+    </div>
+    <div class="card">
+      <h3>Meu compromisso com os 10%</h3>
+      <div class="dupla">
+        <div class="campo"><label>Minha renda mensal (R$)</label>
+          <input type="number" step="0.01" data-s="r.renda10" data-calc></div>
+        <div class="campo"><label>Percentual que vou guardar (%)</label>
+          <input type="number" step="1" data-s="r.pct10" data-calc></div>
+        <div class="campo"><label>Todo mês no dia</label><input type="number" min="1" max="31" data-s="r.dia10"></div>
+        <div class="campo"><label>Para a conta / investimento</label><input data-s="r.conta10"></div>
+      </div>
+      <div id="res10"></div>
+      <div class="cita">"Uma parte de tudo que você ganha é sua para ficar. Pague primeiro a si mesmo."<br>
+        — George S. Clason</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Evolução mês a mês</h3>
+    <div class="tab-rol"><table id="tbTermometro"><thead><tr>
+      <th>Mês</th><th class="num">Dívida total (R$)</th><th class="num">Reserva (R$)</th><th class="num">Investido (R$)</th><th class="num">Patrimônio líquido</th>
+    </tr></thead><tbody></tbody></table></div>
+    <div id="graficoEvolucao" style="margin-top:16px"></div>
+  </div>
+</section>
+
+<!-- ============ 7. METAS ============ -->
+<section id="sec-metas" hidden>
+  <div class="sec-cab">
+    <h2>Meus sonhos e metas</h2>
+    <p>Escreva o sonho, o valor e a data. A calculadora diz quanto precisa guardar por mês —
+       e a barra mostra o quanto já andou.</p>
+  </div>
+
+  <div class="card">
+    <h3>Metas</h3>
+    <div id="listaMetas"></div>
+    <p style="margin-top:14px"><button class="btn" id="btAddMeta">+ Nova meta</button></p>
+  </div>
+
+  <div class="card">
+    <h3>Total das metas</h3>
+    <div class="grade g3" id="kpisMetas"></div>
+    <p class="dica" id="notaMetas"></p>
+  </div>
+
+  <div class="card">
+    <h3>Mapa do ano — metas mês a mês</h3>
+    <div class="tab-rol"><table id="tbMapaAno"><thead><tr>
+      <th>Mês</th><th class="num">Quero ganhar</th><th class="num">Quero guardar</th>
+      <th class="num">Quero investir</th><th class="num">Guardei de fato</th><th>Como foi</th>
+    </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+  </div>
+</section>
+
+<!-- ============ 8. SEMANA ============ -->
+<section id="sec-semana" hidden>
+  <div class="sec-cab">
+    <h2>Acompanhamento semanal</h2>
+    <p>O hábito que sustenta tudo o resto: cinco minutos por dia anotando entrada e saída.</p>
+  </div>
+  <div class="card">
+    <div class="grade g4" style="align-items:end">
+      <div class="campo" style="margin:0"><label>Mês</label><select id="selMesSemana"></select></div>
+      <div class="campo" style="margin:0"><label>Semana</label><select id="selSemana"></select></div>
+      <div class="campo" style="margin:0;grid-column:span 2"><label>Foco desta semana</label><input data-sem="foco"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tab-rol"><table id="tbSemana"><thead><tr>
+      <th>Dia</th><th class="num">Entrou (R$)</th><th class="num">Saiu (R$)</th><th class="num">Saldo</th><th>Nota</th>
+    </tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    <div class="campo" style="margin-top:14px"><label>Aprendizado / ação para a próxima semana</label>
+      <textarea data-sem="aprendizado"></textarea></div>
+  </div>
+</section>
+
+<!-- ============ 9. FECHAMENTO ============ -->
+<section id="sec-fechamento" hidden>
+  <div class="sec-cab">
+    <h2>Fechamento do mês</h2>
+    <p>Balanço sem julgamento. O que importa é a direção, não a perfeição.</p>
+  </div>
+  <div class="card">
+    <div class="campo" style="max-width:260px"><label>Mês</label><select id="selMesFecha"></select></div>
+    <div class="grade g3">
+      <div class="campo"><label>Quanto ganhei (R$)</label><input type="number" step="0.01" data-fec="ganhei" data-calc></div>
+      <div class="campo"><label>Quanto gastei (R$)</label><input type="number" step="0.01" data-fec="gastei" data-calc></div>
+      <div class="campo"><label>Quanto guardei (R$)</label><input type="number" step="0.01" data-fec="guardei" data-calc></div>
+      <div class="campo"><label>Quanto investi (R$)</label><input type="number" step="0.01" data-fec="investi" data-calc></div>
+      <div class="campo"><label>Dívidas que paguei (R$)</label><input type="number" step="0.01" data-fec="dividas" data-calc></div>
+      <div class="campo"><label>% da renda que guardei</label><input id="pctGuardado" readonly></div>
+    </div>
+    <div class="grade g2">
+      <div class="campo"><label>Minha maior vitória financeira do mês</label><textarea data-fec="vitoria"></textarea></div>
+      <div class="campo"><label>O que eu faria diferente</label><textarea data-fec="diferente"></textarea></div>
+      <div class="campo"><label>O que aprendi sobre meu dinheiro</label><textarea data-fec="aprendi"></textarea></div>
+      <div class="campo"><label>O que vou fazer diferente no próximo mês</label><textarea data-fec="proximo"></textarea></div>
+    </div>
+    <div class="campo" style="max-width:320px"><label>Nota do mês</label>
+      <select data-fec="nota">
+        <option value="">—</option><option>Arrasei!</option><option>Foi bem</option>
+        <option>Dá pra melhorar</option><option>Precisamos conversar</option>
+      </select></div>
+  </div>
+  <div class="card">
+    <h3>Como foi meu ano</h3>
+    <div class="grade g3" id="kpisAno"></div>
+    <div class="grade g2" style="margin-top:14px">
+      <div class="campo"><label>Qual hábito financeiro mais mudou minha vida?</label><textarea data-s="a.habito"></textarea></div>
+      <div class="campo"><label>O que não funcionou e precisa mudar?</label><textarea data-s="a.mudar"></textarea></div>
+      <div class="campo"><label>Minha maior conquista financeira</label><textarea data-s="a.conquista"></textarea></div>
+      <div class="campo"><label>Uma palavra que define minha jornada com o dinheiro</label><input data-s="a.palavra"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ------------------------------------------------------------------
+   Planner Financeiro Interativo
+   Dados reais extraídos de transacoes_pierre_ultimo_ano.xlsx
+   (1.219 lançamentos, 27/07/2025 a 26/07/2026)
+   Estrutura e método: Planner Financeiro Anual 2026 + Coleção
+   "Educação Financeira na Prática" (guias 1 a 4).
+-------------------------------------------------------------------*/
+
+const DADOS = {
+  periodo: { ini: "27/07/2025", fim: "26/07/2026", n: 1219 },
+  /* saldos por mês, já sem as transferências internas conta-salário → conta-corrente */
+  meses: [
+    { m: "2025-07", entrada: 313.39, saida: 1647.49, cartao: 324.37, conta: 1323.12 },
+    { m: "2025-08", entrada: 3695.37, saida: 8120.80, cartao: 1819.13, conta: 6301.67 },
+    { m: "2025-09", entrada: 4305.26, saida: 7536.94, cartao: 1803.63, conta: 5733.31 },
+    { m: "2025-10", entrada: 12818.89, saida: 14702.42, cartao: 2478.25, conta: 12224.17 },
+    { m: "2025-11", entrada: 7047.08, saida: 10837.98, cartao: 3816.65, conta: 7021.33 },
+    { m: "2025-12", entrada: 6629.22, saida: 11594.91, cartao: 3859.02, conta: 7735.89 },
+    { m: "2026-01", entrada: 3806.66, saida: 9146.09, cartao: 2522.32, conta: 6623.77 },
+    { m: "2026-02", entrada: 3650.52, saida: 7700.24, cartao: 3041.17, conta: 4659.07 },
+    { m: "2026-03", entrada: 11197.38, saida: 9975.57, cartao: 3346.64, conta: 6628.93 },
+    { m: "2026-04", entrada: 4051.63, saida: 6716.90, cartao: 2660.82, conta: 4056.08 },
+    { m: "2026-05", entrada: 6400.83, saida: 12758.75, cartao: 4464.55, conta: 8294.20 },
+    { m: "2026-06", entrada: 4705.10, saida: 11534.89, cartao: 2896.30, conta: 8638.59 },
+    { m: "2026-07", entrada: 3847.08, saida: 8201.89, cartao: 2794.05, conta: 5407.84, parcial: true }
+  ],
+  /* média mensal por grupo — jan a jun/2026 (6 meses completos mais recentes) */
+  grupos: [
+    { g: "Moradia",                 v: 1886.12 },
+    { g: "Transporte",              v: 2278.65 },
+    { g: "Alimentação",             v: 754.84 },
+    { g: "Saúde",                   v: 402.74 },
+    { g: "Compras e lazer",         v: 1792.20 },
+    { g: "Dívidas e juros",         v: 804.66 },
+    { g: "Educação",                v: 29.98 },
+    { g: "Serviços e outros",       v: 719.28 },
+    { g: "Transferências enviadas", v: 970.25 }
+  ],
+  mediaEntrada6m: 5635.35,
+  mediaSaida6m: 9638.74,
+  medianaSaida6m: 9560.83,
+  /* custo de vida essencial: moradia + transporte + alimentação + saúde */
+  custoVida6m: 5322.35,
+  salario6m: 4069.50,
+  outrasEntradas6m: 1565.85,
+  totalEntrada12m: 72468.41,
+  totalSaida12m: 120474.87,
+  gastoCartao12m: 35826.90,
+  categorias: [
+    { c: "Compras",                           t: 13812.16, n: 153 },
+    { c: "Transferência - PIX (enviados)",    t: 11496.30, n: 54 },
+    { c: "Empréstimos e financiamento",       t: 8797.10,  n: 4 },
+    { c: "Financiamento de veículos",         t: 7687.07,  n: 5 },
+    { c: "Aluguel",                           t: 6500.00,  n: 5 },
+    { c: "Taxas de cartão de crédito",        t: 6381.08,  n: 3 },
+    { c: "Moradia (outros)",                  t: 6357.71,  n: 8 },
+    { c: "Postos de gasolina",                t: 4831.43,  n: 42 },
+    { c: "Compras online",                    t: 4612.73,  n: 38 },
+    { c: "Transferências",                    t: 4257.78,  n: 26 },
+    { c: "Supermercado",                      t: 3945.17,  n: 90 },
+    { c: "Seguros",                           t: 3930.87,  n: 11 },
+    { c: "Restaurantes, bares e lanchonetes", t: 3080.22,  n: 52 },
+    { c: "Viagens",                           t: 2647.05,  n: 9 },
+    { c: "Serviços automotivos",              t: 2530.96,  n: 12 },
+    { c: "Farmácia",                          t: 2371.34,  n: 36 },
+    { c: "Saúde",                             t: 2181.27,  n: 23 },
+    { c: "Vestuário",                         t: 1997.94,  n: 28 }
+  ],
+  /* débitos que se repetiram em 5+ meses do extrato */
+  contasFixas: [
+    { nome: "Aluguel", valor: 1300.00, dia: 5 },
+    { nome: "Financiamento do veículo", valor: 1540.00, dia: 10 },
+    { nome: "Seguro auto — BB Seguro Auto", valor: 393.06, dia: 15 },
+    { nome: "Internet — Brava Telecomunicações", valor: 118.00, dia: 10 },
+    { nome: "Energia — Energisa MT", valor: 83.41, dia: 20 },
+    { nome: "Água — Águas Pontes e Lacerda", valor: 33.23, dia: 20 },
+    { nome: "Celular — Recvivo", valor: 30.00, dia: 28 }
+  ],
+  assinaturas: [
+    { nome: "Google (DL*Google Pierre)", valor: 38.99 },
+    { nome: "Amazon Prime Canais", valor: 29.90 },
+    { nome: "Spotify", valor: 23.90 },
+    { nome: "Google One / Google Play", valor: 22.48 },
+    { nome: "Amazon Prime", valor: 19.89 },
+    { nome: "Amazon Ad Free", valor: 10.00 },
+    { nome: "iFood Club", valor: 5.95 },
+    { nome: "YouTube (DL*Google Youtub)", valor: 1.99 }
+  ],
+  /* parcelamentos ainda abertos no fim do extrato */
+  parcelasAbertas: [
+    { nome: "Jim.Com* Emanoel Gonçalves (parc. 5/11)", saldo: 2298.96, parcela: 383.16, juros: 0 },
+    { nome: "Emanoel Gonçalves Fer (parc. 10/12)",     saldo: 685.00,  parcela: 342.50, juros: 0 },
+    { nome: "Shein — 3 parcelamentos (3/5)",           saldo: 296.72,  parcela: 148.36, juros: 0 }
+  ]
+};
+
+const MESES_PT = ["janeiro","fevereiro","março","abril","maio","junho",
+                  "julho","agosto","setembro","outubro","novembro","dezembro"];
+const DIAS = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
+
+/* 12 meses de planner, começando no mês seguinte ao fim do extrato */
+const MESES_PLANNER = (() => {
+  const out = []; let y = 2026, m = 7; // agosto/2026 (índice 7)
+  for (let i = 0; i < 12; i++) {
+    out.push({ id: `${y}-${String(m + 1).padStart(2, "0")}`,
+               rot: `${MESES_PT[m][0].toUpperCase()}${MESES_PT[m].slice(1)} / ${y}` });
+    m++; if (m > 11) { m = 0; y++; }
+  }
+  return out;
+})();
+
+const FONTES_RECEITA = [
+  { k: "salario", rot: "Salário principal", prev: DADOS.salario6m },
+  { k: "extra",   rot: "Freela / renda extra", prev: 0 },
+  { k: "transf",  rot: "Transferências recebidas", prev: DADOS.outrasEntradas6m },
+  { k: "rend",    rot: "Rendimentos de investimentos", prev: 0 },
+  { k: "outros",  rot: "Outros", prev: 0 }
+];
+
+const PERGUNTAS_RATOS = [
+  "Meu salário acaba antes do final do mês",
+  "Não sei exatamente para onde vai meu dinheiro",
+  "Tenho cartão de crédito no limite ou quase",
+  "Não tenho dinheiro guardado para emergências",
+  "Dependo exclusivamente do meu salário para viver",
+  "Comprei algo a prazo nos últimos 6 meses por falta de dinheiro",
+  "Se eu parar de trabalhar, minhas contas não se pagam",
+  "Tenho mais de uma dívida ativa no momento"
+];
+
+const AREAS_SCORE = [
+  "Controle de quanto gasto todo mês",
+  "Conhecimento dos meus ativos e passivos",
+  "Capacidade de poupar regularmente",
+  "Controle das minhas dívidas",
+  "Clareza sobre meus objetivos financeiros",
+  "Organização dos meus documentos financeiros",
+  "Capacidade de lidar com imprevistos",
+  "Conhecimento sobre investimentos"
+];
+
+const HABITOS = [
+  "Esperar 48 horas antes de qualquer compra não planejada",
+  "Usar o cartão de crédito como se fosse débito — só o que já tenho na conta",
+  "Pagar a fatura sempre integral, nunca o mínimo",
+  "Definir um limite mensal para gastos variáveis e respeitar",
+  "Registrar todo gasto no mesmo dia (o que não é visto, não é controlado)",
+  "Guardar os 10% assim que o dinheiro entra, antes de qualquer conta",
+  "Revisar as assinaturas uma vez por mês",
+  "Não criar novo parcelamento enquanto houver parcelamento aberto"
+];
+
+const DISTRIB_IDEAL = [
+  { rot: "Necessidades fixas",            pct: 50, grupos: ["Moradia", "Transporte", "Alimentação", "Saúde"] },
+  { rot: "Gastos variáveis / lazer",      pct: 20, grupos: ["Compras e lazer"] },
+  { rot: "Poupança / reserva",            pct: 10, grupos: [] },
+  { rot: "Investimentos",                 pct: 10, grupos: [] },
+  { rot: "Educação / desenvolvimento",    pct: 5,  grupos: ["Educação"] },
+  { rot: "Doações / extras",              pct: 5,  grupos: ["Serviços e outros", "Transferências enviadas", "Dívidas e juros"] }
+];
+
+/* ---------------- estado ---------------- */
+const CHAVE = "plannerFinanceiro.v1";
+let S = carregar();
+
+function estadoInicial() {
+  const mesAtual = MESES_PLANNER[0].id;
+  return {
+    mesAtivo: mesAtual, mesSemana: mesAtual, semanaAtiva: 1, mesFecha: mesAtual,
+    d: { renda: DADOS.salario6m.toFixed(2), rendaFam: DADOS.mediaEntrada6m.toFixed(2),
+         divida: "", guardado: "", nome: "", data: "", sonho: "", atrapalha: "" },
+    ratos: [], score: AREAS_SCORE.map(() => 3), habitos: [],
+    acoes: [ { o: "", q: "", c: "" }, { o: "", q: "", c: "" }, { o: "", q: "", c: "" } ],
+    r: { gasto: DADOS.custoVida6m.toFixed(2), tenho: "", nivel: "3",
+         porMes: "", renda10: DADOS.mediaEntrada6m.toFixed(2), pct10: "10", dia10: "5", conta10: "" },
+    dv: { metodo: "bola", extra: "" },
+    dividas: DADOS.parcelasAbertas.map(p => ({ ...p, quitada: false })),
+    contas: {}, assinaturas: null, metas: [], mapa: {}, mes: {}, semanas: {}, fecha: {},
+    a: { habito: "", mudar: "", conquista: "", palavra: "" }
+  };
+}
+
+function carregar() {
+  try {
+    const bruto = localStorage.getItem(CHAVE);
+    if (!bruto) return estadoInicial();
+    return Object.assign(estadoInicial(), JSON.parse(bruto));
+  } catch (e) { return estadoInicial(); }
+}
+let salvarPendente = null;
+function salvar() {
+  clearTimeout(salvarPendente);
+  salvarPendente = setTimeout(() => {
+    try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { /* modo privado */ }
+  }, 250);
+}
+function get(caminho) { return caminho.split(".").reduce((o, k) => (o || {})[k], S); }
+function set(caminho, valor) {
+  const ks = caminho.split("."); const ult = ks.pop();
+  ks.reduce((o, k) => (o[k] = o[k] || {}), S)[ult] = valor;
+}
+
+/* ---------------- utilidades ---------------- */
+const n = v => { const x = parseFloat(String(v ?? "").replace(",", ".")); return isFinite(x) ? x : 0; };
+const brl = v => (v < 0 ? "-" : "") + "R$ " + Math.abs(v).toLocaleString("pt-BR",
+  { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const brl0 = v => (v < 0 ? "-" : "") + "R$ " + Math.abs(Math.round(v)).toLocaleString("pt-BR");
+const pct = v => (isFinite(v) ? v.toFixed(0) : "0") + "%";
+const el = (t, a = {}, ...f) => {
+  const e = document.createElement(t);
+  for (const [k, v] of Object.entries(a)) {
+    if (k === "class") e.className = v;
+    else if (k === "html") e.innerHTML = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v !== null && v !== undefined && v !== false) e.setAttribute(k, v);
+  }
+  f.flat().forEach(c => e.append(c));
+  return e;
+};
+const rotuloMes = id => (MESES_PLANNER.find(m => m.id === id) || {}).rot || id;
+const cor = i => `var(--c${(i % 9) + 1})`;
+
+/* ---------------- navegação ---------------- */
+const ABAS = [
+  ["painel",      "Painel"],
+  ["diagnostico", "Diagnóstico"],
+  ["orcamento",   "Orçamento"],
+  ["contas",      "Contas e assinaturas"],
+  ["dividas",     "Dívidas"],
+  ["reserva",     "Reserva e 10%"],
+  ["metas",       "Metas"],
+  ["semana",      "Semana"],
+  ["fechamento",  "Fechamento"]
+];
+
+function montarNav() {
+  const nav = document.getElementById("navBar");
+  ABAS.forEach(([id, rot]) => {
+    nav.append(el("button", { type: "button", "data-aba": id, onclick: () => irPara(id) }, rot));
+  });
+}
+function irPara(id) {
+  ABAS.forEach(([a]) => document.getElementById("sec-" + a).hidden = a !== id);
+  document.querySelectorAll("#navBar button").forEach(b =>
+    b.setAttribute("aria-current", String(b.dataset.aba === id)));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  location.hash = id;
+}
+
+/* ---------------- gráficos SVG ---------------- */
+function graficoBarrasMes(alvo) {
+  const dados = DADOS.meses;
+  const larg = Math.max(660, dados.length * 62), alt = 240, base = alt - 34, topo = 14;
+  const max = Math.max(...dados.map(d => Math.max(d.entrada, d.saida)));
+  const esc = v => (v / max) * (base - topo);
+  const g = [];
+  [0.25, 0.5, 0.75, 1].forEach(f => {
+    const y = base - esc(max * f);
+    g.push(`<line x1="42" x2="${larg}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`);
+    g.push(`<text x="0" y="${y + 4}" font-size="10" fill="var(--txt-2)">${brl0(max * f).replace("R$ ", "")}</text>`);
+  });
+  dados.forEach((d, i) => {
+    const x = 48 + i * ((larg - 52) / dados.length), w = ((larg - 52) / dados.length) * 0.34;
+    const op = d.parcial ? 0.55 : 1;
+    g.push(`<rect x="${x}" y="${base - esc(d.entrada)}" width="${w}" height="${esc(d.entrada)}" fill="var(--c2)" opacity="${op}" rx="2"/>`);
+    g.push(`<rect x="${x + w + 2}" y="${base - esc(d.saida)}" width="${w}" height="${esc(d.saida)}" fill="var(--c5)" opacity="${op}" rx="2"/>`);
+    const saldo = d.entrada - d.saida;
+    g.push(`<text x="${x + w}" y="${base + 14}" font-size="10" fill="var(--txt-2)" text-anchor="middle">${d.m.slice(5)}/${d.m.slice(2, 4)}</text>`);
+    g.push(`<text x="${x + w}" y="${base + 27}" font-size="9.5" font-weight="700" fill="${saldo < 0 ? "var(--bad)" : "var(--good)"}" text-anchor="middle">${brl0(saldo).replace("R$ ", "")}</text>`);
+  });
+  alvo.innerHTML = `<svg viewBox="0 0 ${larg} ${alt}" width="${larg}" height="${alt}" role="img"
+     aria-label="Entradas e saídas mês a mês">${g.join("")}</svg>`;
+}
+
+function graficoGrupos(alvo) {
+  const dados = [...DADOS.grupos].sort((a, b) => b.v - a.v);
+  const max = dados[0].v;
+  alvo.innerHTML = "";
+  dados.forEach((d, i) => {
+    alvo.append(el("div", { style: "margin-bottom:9px" },
+      el("div", { style: "display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px" },
+        el("span", {}, d.g),
+        el("strong", { style: "font-variant-numeric:tabular-nums" }, brl(d.v))),
+      el("div", { class: "barra" },
+        el("i", { style: `width:${(d.v / max) * 100}%;background:${cor(i)}` }))));
+  });
+}
+
+/* ---------------- 1. painel ---------------- */
+function renderPainel() {
+  const saldo12 = DADOS.totalEntrada12m - DADOS.totalSaida12m;
+  const mediaSaldo = DADOS.mediaEntrada6m - DADOS.mediaSaida6m;
+  const kpis = [
+    ["Entrou em 12 meses", brl0(DADOS.totalEntrada12m), `${DADOS.periodo.n} lançamentos`, ""],
+    ["Saiu em 12 meses", brl0(DADOS.totalSaida12m), "sem transferências internas", ""],
+    ["Resultado do período", brl0(saldo12), saldo12 < 0 ? "gastou mais do que entrou" : "sobrou no período", saldo12 < 0 ? "neg" : "pos"],
+    ["Entrada média/mês", brl0(DADOS.mediaEntrada6m), "média jan–jun/2026", ""],
+    ["Saída média/mês", brl0(DADOS.mediaSaida6m), "média jan–jun/2026", ""],
+    ["Sobra média/mês", brl0(mediaSaldo), mediaSaldo < 0 ? "é este buraco que o planner ataca" : "direcione para a reserva", mediaSaldo < 0 ? "neg" : "pos"]
+  ];
+  const c = document.getElementById("kpisTopo");
+  c.innerHTML = "";
+  kpis.forEach(([r, v, s, cls]) => c.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + cls }, v), el("div", { class: "sub" }, s))));
+
+  graficoBarrasMes(document.getElementById("graficoMeses"));
+  document.getElementById("notaMeses").textContent =
+    `Julho/2026 aparece mais claro porque o extrato termina em 26/07 — é um mês incompleto. ` +
+    `Outubro/2025 e março/2026 têm entradas altas por transferências pontuais, não por renda recorrente.`;
+  graficoGrupos(document.getElementById("graficoGrupos"));
+
+  const tb = document.querySelector("#tbCategorias tbody");
+  tb.innerHTML = "";
+  DADOS.categorias.forEach(c2 => tb.append(el("tr", {},
+    el("td", {}, c2.c), el("td", { class: "num" }, brl0(c2.t)),
+    el("td", { class: "num" }, brl0(c2.t / 12)), el("td", { class: "num" }, String(c2.n)))));
+
+  const cartaoPct = (DADOS.gastoCartao12m / DADOS.totalSaida12m) * 100;
+  const dividasJuros = DADOS.grupos.find(g => g.g === "Dívidas e juros").v;
+  const alvo = document.getElementById("leituraDiag");
+  alvo.innerHTML = "";
+  const pontos = [
+    ["ru", "O mês fecha no vermelho, e não é exceção",
+     `Em 12 dos 13 meses do extrato a saída superou a entrada. O rombo médio é de ${brl0(Math.abs(DADOS.mediaEntrada6m - DADOS.mediaSaida6m))} por mês. Este é o número a atacar primeiro — antes de investir.`],
+    ["al", "Transporte é o maior grupo de gasto",
+     `${brl0(DADOS.grupos.find(g => g.g === "Transporte").v)}/mês em média, puxado pelo financiamento do veículo (${brl0(1540)}), combustível (${brl0(4831.43 / 12)}/mês) e serviços automotivos. Um carro financiado é passivo: tira dinheiro do bolso todo mês.`],
+    ["al", "Compras e lazer pesam quase tanto quanto a moradia",
+     `${brl0(DADOS.grupos.find(g => g.g === "Compras e lazer").v)}/mês. "Compras" isolada soma ${brl0(13812.16)} no ano em 153 lançamentos — é o gasto mais fatiado e o mais fácil de reduzir sem trauma.`],
+    ["ru", "Juros e taxas de cartão consumiram " + brl0(6381.08 + 422.81 + 94.69),
+     `São ${brl0(dividasJuros)}/mês em média entre encargos, IOF e juros de saldo. Dinheiro que não compra nada. Nenhum investimento cobre esse custo — quitar vem antes de aplicar.`],
+    ["al", `${pct(cartaoPct)} de tudo o que sai vai pelo cartão`,
+     `${brl0(DADOS.gastoCartao12m)} em 12 meses. Com parcelamentos ainda abertos, parte da renda dos próximos meses já está comprometida antes de entrar.`],
+    ["ok", "A renda existe e é razoável",
+     `Salário médio de ${brl0(DADOS.salario6m)} mais ${brl0(DADOS.outrasEntradas6m)} de outras entradas. O problema não é o quanto entra — é o quanto sai e para onde.`]
+  ];
+  pontos.forEach(([t, tit, txt]) => alvo.append(el("div", { style: "margin-bottom:16px" },
+    el("div", { style: "display:flex;gap:9px;align-items:center;margin-bottom:4px;flex-wrap:wrap" },
+      el("span", { class: "tag " + t }, t === "ok" ? "ponto forte" : t === "al" ? "atenção" : "urgente"),
+      el("strong", {}, tit)),
+    el("div", { style: "color:var(--txt-2);font-size:13.5px" }, txt))));
+}
+
+/* ---------------- 2. diagnóstico ---------------- */
+function renderDiagnostico() {
+  const lr = document.getElementById("listaRatos");
+  lr.innerHTML = "";
+  PERGUNTAS_RATOS.forEach((p, i) => {
+    const cb = el("input", { type: "checkbox", id: "rato" + i, onchange: e => {
+      S.ratos = S.ratos.filter(x => x !== i);
+      if (e.target.checked) S.ratos.push(i);
+      salvar(); resultadoRatos();
+    } });
+    cb.checked = S.ratos.includes(i);
+    lr.append(el("li", {}, cb, el("label", { for: "rato" + i, style: "margin:0;font-weight:400;color:var(--txt);font-size:14px" }, p)));
+  });
+  resultadoRatos();
+
+  const ls = document.getElementById("listaScore");
+  ls.innerHTML = "";
+  AREAS_SCORE.forEach((a, i) => {
+    const vsp = el("strong", { style: "min-width:16px;text-align:right" }, String(S.score[i]));
+    const rg = el("input", { type: "range", min: 1, max: 5, value: S.score[i], oninput: e => {
+      S.score[i] = +e.target.value; vsp.textContent = e.target.value; salvar(); resultadoScore();
+    } });
+    ls.append(el("div", { style: "margin-bottom:10px" },
+      el("div", { style: "display:flex;gap:10px;align-items:center;font-size:13.5px;margin-bottom:2px" },
+        el("span", { style: "flex:1" }, a), vsp),
+      rg));
+  });
+  resultadoScore();
+
+  const tb = document.querySelector("#tbDistrib tbody");
+  tb.innerHTML = "";
+  const renda = n(S.d.rendaFam) || DADOS.mediaEntrada6m;
+  DISTRIB_IDEAL.forEach(d => {
+    const val = d.grupos.reduce((s, g) => s + (DADOS.grupos.find(x => x.g === g)?.v || 0), 0);
+    const p = renda ? (val / renda) * 100 : 0;
+    let tag = "", txt = "—";
+    if (d.grupos.length === 0) { txt = "depende de você"; }
+    else if (p > d.pct * 1.25) { tag = "ru"; txt = "acima do ideal"; }
+    else if (p > d.pct) { tag = "al"; txt = "levemente acima"; }
+    else { tag = "ok"; txt = "dentro"; }
+    tb.append(el("tr", {},
+      el("td", {}, d.rot), el("td", { class: "num" }, d.pct + "%"),
+      el("td", { class: "num" }, d.grupos.length ? pct(p) : "—"),
+      el("td", { class: "num" }, d.grupos.length ? brl(val) : "—"),
+      el("td", {}, el("span", { class: "tag " + tag }, txt))));
+  });
+
+  const ac = document.getElementById("acoesImediatas");
+  ac.innerHTML = "";
+  S.acoes.forEach((a, i) => {
+    const mk = (campo, rot) => {
+      const inp = el("input", { value: a[campo] || "", oninput: e => { S.acoes[i][campo] = e.target.value; salvar(); } });
+      return el("div", { class: "campo" }, el("label", {}, rot), inp);
+    };
+    ac.append(el("div", { class: "card", style: "margin:0;background:var(--panel-2)" },
+      el("h3", {}, "Ação " + (i + 1)),
+      mk("o", "O que vou fazer"), mk("q", "Quando começo"), mk("c", "Como vou medir")));
+  });
+
+  const kp = document.getElementById("kpisPatrimonio");
+  const guardado = n(S.d.guardado), divida = n(S.d.divida);
+  kp.innerHTML = "";
+  [["Patrimônio líquido", brl(guardado - divida), "guardado − dívidas", guardado - divida < 0 ? "neg" : "pos"],
+   ["Dívida ÷ renda mensal", (n(S.d.renda) ? (divida / n(S.d.renda)).toFixed(1) : "—") + "×",
+    divida / (n(S.d.renda) || 1) > 6 ? "acima de 6× exige plano firme" : "abaixo de 6× é administrável", ""],
+   ["Reserva em meses de gasto", (guardado / (n(S.r.gasto) || DADOS.custoVida6m)).toFixed(1),
+    "meta mínima: 3 meses", guardado / (n(S.r.gasto) || DADOS.custoVida6m) >= 3 ? "pos" : "att"]
+  ].forEach(([r, v, s, c]) => kp.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + c }, v), el("div", { class: "sub" }, s))));
+}
+function resultadoRatos() {
+  const q = S.ratos.length, e = document.getElementById("resRatos");
+  let tag, txt;
+  if (q <= 2) { tag = "ok"; txt = "Você tem boas bases. Foque em acelerar e investir."; }
+  else if (q <= 5) { tag = "al"; txt = "Atenção: você está preso no ciclo. Comece agora."; }
+  else { tag = "ru"; txt = "Urgente: você precisa de um plano imediatamente."; }
+  e.innerHTML = "";
+  e.append(el("span", { class: "tag " + tag }, q + " de 8"), " ", el("span", {}, txt));
+}
+function resultadoScore() {
+  const t = S.score.reduce((a, b) => a + b, 0), e = document.getElementById("resScore");
+  let tag, txt;
+  if (t <= 16) { tag = "ru"; txt = "Precisa de atenção urgente — comece pelo básico."; }
+  else if (t <= 28) { tag = "al"; txt = "Tem consciência, mas há muito a melhorar."; }
+  else if (t <= 36) { tag = "ok"; txt = "Boas bases — hora de acelerar."; }
+  else { tag = "ok"; txt = "Parabéns! Continue crescendo."; }
+  e.innerHTML = "";
+  e.append(el("span", { class: "tag " + tag }, t + " / 40"), " ", el("span", {}, txt));
+}
+
+/* ---------------- 3. orçamento ---------------- */
+function mesDados(id) {
+  S.mes[id] = S.mes[id] || { foco: "", metaGuardar: "", metaCortar: "", rec: {}, desp: {} };
+  return S.mes[id];
+}
+function renderOrcamento() {
+  const md = mesDados(S.mesAtivo);
+  document.querySelectorAll("[data-mes]").forEach(i => {
+    i.value = md[i.dataset.mes] || "";
+    i.oninput = e => { mesDados(S.mesAtivo)[i.dataset.mes] = e.target.value; salvar(); calcOrcamento(); };
+  });
+
+  const tbR = document.querySelector("#tbReceitas tbody"); tbR.innerHTML = "";
+  FONTES_RECEITA.forEach(f => {
+    md.rec[f.k] = md.rec[f.k] || { p: f.prev ? f.prev.toFixed(2) : "", a: "" };
+    tbR.append(linhaOrc(f.rot, md.rec[f.k]));
+  });
+  const tbD = document.querySelector("#tbDespesas tbody"); tbD.innerHTML = "";
+  DADOS.grupos.forEach(g => {
+    md.desp[g.g] = md.desp[g.g] || { p: g.v.toFixed(2), a: "" };
+    tbD.append(linhaOrc(g.g, md.desp[g.g]));
+  });
+  calcOrcamento();
+}
+function linhaOrc(rot, obj) {
+  const dif = el("td", { class: "num" });
+  const mk = campo => el("input", { type: "number", step: "0.01", class: "num", value: obj[campo] ?? "",
+    oninput: e => { obj[campo] = e.target.value; salvar(); calcOrcamento(); } });
+  const tr = el("tr", {}, el("td", {}, rot), el("td", { class: "num" }, mk("p")), el("td", { class: "num" }, mk("a")), dif);
+  tr._dif = dif; tr._obj = obj;
+  return tr;
+}
+function calcOrcamento() {
+  const md = mesDados(S.mesAtivo);
+  const somar = (tab, campo) => [...document.querySelectorAll(tab + " tbody tr")]
+    .reduce((s, tr) => s + n(tr._obj[campo]), 0);
+  [["#tbReceitas", true], ["#tbDespesas", false]].forEach(([tab, receita]) => {
+    let tp = 0, ta = 0;
+    document.querySelectorAll(tab + " tbody tr").forEach(tr => {
+      const p = n(tr._obj.p), a = n(tr._obj.a), d = receita ? a - p : p - a;
+      const preenchido = String(tr._obj.a ?? "").trim() !== "";
+      tp += p; ta += a;
+      tr._dif.textContent = preenchido ? brl(d) : "";
+      tr._dif.className = "num " + (preenchido ? (d < 0 ? "neg" : "pos") : "");
+    });
+    const tf = document.querySelector(tab + " tfoot"); tf.innerHTML = "";
+    const algum = [...document.querySelectorAll(tab + " tbody tr")]
+      .some(tr => String(tr._obj.a ?? "").trim() !== "");
+    const difT = receita ? ta - tp : tp - ta;
+    tf.append(el("tr", {}, el("td", {}, "Total"), el("td", { class: "num" }, brl(tp)),
+      el("td", { class: "num" }, algum ? brl(ta) : "—"),
+      el("td", { class: "num " + (algum ? (difT < 0 ? "neg" : "pos") : "") }, algum ? brl(difT) : "—")));
+  });
+
+  const recA = somar("#tbReceitas", "a"), despA = somar("#tbDespesas", "a");
+  const recP = somar("#tbReceitas", "p"), despP = somar("#tbDespesas", "p");
+  const saldoP = recP - despP, saldoA = recA - despA;
+  const guardado = n(md.metaGuardar);
+  const k = document.getElementById("kpisOrcamento"); k.innerHTML = "";
+  [["Saldo planejado", brl(saldoP), "previsto − previsto", saldoP < 0 ? "neg" : "pos"],
+   ["Saldo real", (recA || despA) ? brl(saldoA) : "—", (recA || despA) ? "com o que já aconteceu" : "preencha a coluna Aconteceu", (recA || despA) ? (saldoA < 0 ? "neg" : "pos") : ""],
+   ["% da renda guardado", recA ? pct((guardado / recA) * 100) : "—", "meta mínima: 10%", (guardado / (recA || 1)) >= 0.1 ? "pos" : "att"],
+   ["Falta para bater a meta", brl(Math.max(0, guardado - Math.max(0, saldoA))), "meta de guardar do mês", ""]
+  ].forEach(([r, v, s, c]) => k.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + c }, v), el("div", { class: "sub" }, s))));
+  salvar();
+}
+
+/* ---------------- 4. contas e assinaturas ---------------- */
+function contasDoMes(id) {
+  if (!S.contas[id]) {
+    S.contas[id] = DADOS.contasFixas.map(c => ({ ...c, pago: false, obs: "" }));
+  }
+  return S.contas[id];
+}
+function renderContas() {
+  document.getElementById("rotMesContas").textContent = rotuloMes(S.mesAtivo);
+  const lista = contasDoMes(S.mesAtivo);
+  const tb = document.querySelector("#tbContas tbody"); tb.innerHTML = "";
+  lista.forEach((c, i) => {
+    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
+      class: tipo === "number" ? "num" : "", value: c[campo] ?? "",
+      oninput: e => { c[campo] = tipo === "number" ? e.target.value : e.target.value; salvar(); calcContas(); } });
+    const cb = el("input", { type: "checkbox", onchange: e => { c.pago = e.target.checked; salvar(); calcContas(); } });
+    cb.checked = !!c.pago;
+    tb.append(el("tr", { class: c.pago ? "risc" : "" },
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "number")),
+      el("td", { class: "num" }, inp("dia", "number")), el("td", {}, cb),
+      el("td", {}, inp("obs")),
+      el("td", {}, el("button", { class: "btn sec mini", onclick: () => { lista.splice(i, 1); salvar(); renderContas(); } }, "×"))));
+  });
+  if (!S.assinaturas) S.assinaturas = DADOS.assinaturas.map(a => ({ ...a, usa: "sim", cancelar: false, acao: "" }));
+  const ta = document.querySelector("#tbAssinaturas tbody"); ta.innerHTML = "";
+  S.assinaturas.forEach((a, i) => {
+    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
+      class: tipo === "number" ? "num" : "", value: a[campo] ?? "",
+      oninput: e => { a[campo] = e.target.value; salvar(); calcContas(); } });
+    const sel = el("select", { onchange: e => { a.usa = e.target.value; salvar(); } },
+      ...["sim", "às vezes", "quase nunca"].map(o => el("option", { selected: a.usa === o }, o)));
+    const cb = el("input", { type: "checkbox", onchange: e => { a.cancelar = e.target.checked; salvar(); calcContas(); } });
+    cb.checked = !!a.cancelar;
+    ta.append(el("tr", { class: a.cancelar ? "risc" : "" },
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "number")),
+      el("td", {}, sel), el("td", {}, cb), el("td", {}, inp("acao")),
+      el("td", {}, el("button", { class: "btn sec mini", onclick: () => { S.assinaturas.splice(i, 1); salvar(); renderContas(); } }, "×"))));
+  });
+  calcContas();
+}
+function calcContas() {
+  const lista = contasDoMes(S.mesAtivo);
+  const tot = lista.reduce((s, c) => s + n(c.valor), 0);
+  const pago = lista.filter(c => c.pago).reduce((s, c) => s + n(c.valor), 0);
+  const tf = document.querySelector("#tbContas tfoot"); tf.innerHTML = "";
+  tf.append(el("tr", {}, el("td", {}, "Total das contas"), el("td", { class: "num" }, brl(tot)),
+    el("td", { colspan: 4 }, `pago ${brl(pago)} · falta ${brl(tot - pago)}`)));
+
+  const totA = S.assinaturas.reduce((s, a) => s + n(a.valor), 0);
+  const eco = S.assinaturas.filter(a => a.cancelar).reduce((s, a) => s + n(a.valor), 0);
+  const tfa = document.querySelector("#tbAssinaturas tfoot"); tfa.innerHTML = "";
+  tfa.append(el("tr", {}, el("td", {}, "Total assinaturas"), el("td", { class: "num" }, brl(totA)),
+    el("td", { colspan: 4 }, `marcadas para cancelar: ${brl(eco)}/mês`)));
+  document.getElementById("avisoAssin").innerHTML =
+    `Suas assinaturas somam <strong>${brl(totA)} por mês</strong> — ${brl(totA * 12)} por ano. ` +
+    (eco > 0
+      ? `Cancelando o que você marcou, sobram <strong>${brl(eco)}/mês</strong> (${brl(eco * 12)} no ano) para a reserva.`
+      : `Marque na coluna "vou cancelar" o que você usa pouco e veja quanto sobra no ano.`);
+  salvar();
+}
+
+/* ---------------- 5. dívidas ---------------- */
+function renderDividas() {
+  const tb = document.querySelector("#tbDividas tbody"); tb.innerHTML = "";
+  S.dividas.forEach((d, i) => {
+    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
+      class: tipo === "number" ? "num" : "", value: d[campo] ?? "",
+      oninput: e => { d[campo] = e.target.value; salvar(); calcDividas(); } });
+    const cb = el("input", { type: "checkbox", onchange: e => { d.quitada = e.target.checked; salvar(); renderDividas(); } });
+    cb.checked = !!d.quitada;
+    tb.append(el("tr", { class: d.quitada ? "risc" : "" },
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("saldo", "number")),
+      el("td", { class: "num" }, inp("parcela", "number")), el("td", { class: "num" }, inp("juros", "number")),
+      el("td", {}, cb),
+      el("td", {}, el("button", { class: "btn sec mini", onclick: () => { S.dividas.splice(i, 1); salvar(); renderDividas(); } }, "×"))));
+  });
+  calcDividas();
+}
+function calcDividas() {
+  const ativas = S.dividas.filter(d => !d.quitada);
+  const total = ativas.reduce((s, d) => s + n(d.saldo), 0);
+  const parcelas = ativas.reduce((s, d) => s + n(d.parcela), 0);
+  const quitadas = S.dividas.filter(d => d.quitada).reduce((s, d) => s + n(d.saldo), 0);
+  const tf = document.querySelector("#tbDividas tfoot"); tf.innerHTML = "";
+  tf.append(el("tr", {}, el("td", {}, "Total em aberto"), el("td", { class: "num" }, brl(total)),
+    el("td", { class: "num" }, brl(parcelas)), el("td", { colspan: 3 }, "")));
+
+  const ordem = [...ativas].sort((a, b) => S.dv.metodo === "aval"
+    ? n(b.juros) - n(a.juros) || n(a.saldo) - n(b.saldo)
+    : n(a.saldo) - n(b.saldo));
+  const tbP = document.querySelector("#tbPlano tbody"); tbP.innerHTML = "";
+  let extra = n(S.dv.extra), mesAcum = 0;
+  ordem.forEach((d, i) => {
+    const pag = n(d.parcela) + extra;
+    const meses = pag > 0 ? Math.ceil(n(d.saldo) / pag) : Infinity;
+    mesAcum += isFinite(meses) ? meses : 0;
+    const dt = new Date(2026, 7 + mesAcum, 1);
+    tbP.append(el("tr", {},
+      el("td", { class: "num" }, String(i + 1)), el("td", {}, d.nome || "—"),
+      el("td", { class: "num" }, brl(n(d.saldo))), el("td", { class: "num" }, n(d.juros) ? n(d.juros) + "%" : "—"),
+      el("td", {}, isFinite(meses)
+        ? `${meses} ${meses === 1 ? "mês" : "meses"} · até ${MESES_PT[dt.getMonth()]}/${dt.getFullYear()}`
+        : "informe a parcela")));
+    extra += n(d.parcela); // efeito bola de neve: a parcela liberada vai para a próxima
+  });
+
+  const rendaRef = n(S.d.renda) || DADOS.mediaEntrada6m;
+  const k = document.getElementById("kpisDividas"); k.innerHTML = "";
+  [["Total em aberto", brl(total), `${ativas.length} dívida(s)`, total ? "neg" : "pos"],
+   ["Parcelas por mês", brl(parcelas), pct((parcelas / rendaRef) * 100) + " da renda",
+    parcelas / rendaRef > 0.3 ? "neg" : "att"],
+   ["Já quitado", brl(quitadas), "cada uma riscada é uma vitória", "pos"],
+   ["Com o extra de " + brl(n(S.dv.extra)), brl(parcelas + n(S.dv.extra)), "indo para a dívida da vez", ""]
+  ].forEach(([r, v, s, c]) => k.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + c }, v), el("div", { class: "sub" }, s))));
+
+  const g = document.getElementById("graficoDividas"); g.innerHTML = "";
+  const maxD = Math.max(...S.dividas.map(d => n(d.saldo)), 1);
+  S.dividas.forEach((d, i) => g.append(el("div", { style: "margin-bottom:8px" },
+    el("div", { style: "display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px" },
+      el("span", { class: d.quitada ? "risc" : "" }, d.nome || "—"), el("strong", {}, brl(n(d.saldo)))),
+    el("div", { class: "barra" }, el("i", {
+      style: `width:${(n(d.saldo) / maxD) * 100}%;background:${d.quitada ? "var(--c8)" : cor(i + 4)}` })))));
+  salvar();
+}
+
+/* ---------------- 6. reserva ---------------- */
+function renderReserva() {
+  calcReserva();
+  const tb = document.querySelector("#tbTermometro tbody"); tb.innerHTML = "";
+  S.termometro = S.termometro || {};
+  MESES_PLANNER.forEach(m => {
+    const t = S.termometro[m.id] = S.termometro[m.id] || { div: "", res: "", inv: "" };
+    const pl = el("td", { class: "num" });
+    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: t[campo],
+      oninput: e => { t[campo] = e.target.value; salvar(); atualizaLinhaTerm(t, pl); graficoEvolucao(); } });
+    tb.append(el("tr", {}, el("td", {}, m.rot), el("td", { class: "num" }, inp("div")),
+      el("td", { class: "num" }, inp("res")), el("td", { class: "num" }, inp("inv")), pl));
+    atualizaLinhaTerm(t, pl);
+  });
+  graficoEvolucao();
+}
+function atualizaLinhaTerm(t, celula) {
+  const v = n(t.res) + n(t.inv) - n(t.div);
+  celula.textContent = (t.res || t.inv || t.div) ? brl(v) : "";
+  celula.className = "num " + ((t.res || t.inv || t.div) ? (v < 0 ? "neg" : "pos") : "");
+}
+function calcReserva() {
+  const gasto = n(S.r.gasto), tenho = n(S.r.tenho), nivel = +S.r.nivel || 3, porMes = n(S.r.porMes);
+  const meta = gasto * nivel, falta = Math.max(0, meta - tenho);
+  const meses = porMes > 0 ? Math.ceil(falta / porMes) : null;
+  const p = meta ? Math.min(100, (tenho / meta) * 100) : 0;
+  const e = document.getElementById("resReserva");
+  e.innerHTML = "";
+  e.append(
+    el("div", { class: "grade g2", style: "margin-bottom:12px" },
+      kpiMini("Minha meta de reserva", brl(meta), `${nivel} ${nivel === 1 ? "mês" : "meses"} de gasto`),
+      kpiMini("Ainda falta", brl(falta), falta === 0 ? "meta atingida!" : "para completar", falta === 0 ? "pos" : "att")),
+    el("div", { class: "barra" }, el("i", { style: `width:${p}%` })),
+    el("p", { class: "dica" }, meses === null
+      ? `Preencha "quanto consigo guardar por mês" para ver a data de chegada.`
+      : falta === 0 ? `Reserva completa. O próximo passo é investir o excedente.`
+      : `Guardando ${brl(porMes)} por mês, você chega lá em ${meses} ${meses === 1 ? "mês" : "meses"}.`));
+  const pc = n(S.r.pct10) || 10, renda = n(S.r.renda10);
+  const e2 = document.getElementById("res10");
+  e2.innerHTML = "";
+  e2.append(el("div", { class: "grade g2" },
+    kpiMini(`${pc}% da renda`, brl(renda * pc / 100), `todo mês, no dia ${S.r.dia10 || "—"}`),
+    kpiMini("Em 12 meses", brl(renda * pc / 100 * 12), "sem contar rendimento", "pos")));
+  salvar();
+}
+function kpiMini(rot, val, sub, cls = "") {
+  return el("div", { class: "kpi" }, el("div", { class: "rot" }, rot),
+    el("div", { class: "val " + cls, style: "font-size:19px" }, val), el("div", { class: "sub" }, sub));
+}
+function graficoEvolucao() {
+  const dados = MESES_PLANNER.map(m => ({ rot: m.rot.slice(0, 3), ...(S.termometro[m.id] || {}) }));
+  const vals = dados.flatMap(d => [n(d.div), n(d.res) + n(d.inv)]);
+  const max = Math.max(...vals, 1);
+  const larg = 660, alt = 170, base = alt - 24;
+  const pts = (campo) => dados.map((d, i) => {
+    const x = 30 + i * ((larg - 40) / 11);
+    const v = campo === "div" ? n(d.div) : n(d.res) + n(d.inv);
+    return `${x},${base - (v / max) * (base - 16)}`;
+  }).join(" ");
+  const rot = dados.map((d, i) =>
+    `<text x="${30 + i * ((larg - 40) / 11)}" y="${alt - 6}" font-size="9.5" fill="var(--txt-2)" text-anchor="middle">${d.rot}</text>`).join("");
+  document.getElementById("graficoEvolucao").innerHTML =
+    `<div class="svg-rol"><svg viewBox="0 0 ${larg} ${alt}" width="${larg}" height="${alt}" role="img" aria-label="Evolução de dívida e reserva">
+      <line x1="24" x2="${larg - 6}" y1="${base}" y2="${base}" stroke="var(--line)"/>
+      <polyline fill="none" stroke="var(--c5)" stroke-width="2" points="${pts("div")}"/>
+      <polyline fill="none" stroke="var(--c2)" stroke-width="2" points="${pts("res")}"/>${rot}
+    </svg></div>
+    <div class="leg"><span><i style="background:var(--c5)"></i>Dívida total</span>
+    <span><i style="background:var(--c2)"></i>Reserva + investido</span></div>`;
+}
+
+/* ---------------- 7. metas ---------------- */
+function renderMetas() {
+  const c = document.getElementById("listaMetas"); c.innerHTML = "";
+  if (!S.metas.length) {
+    c.append(el("p", { class: "dica", style: "margin:0" },
+      "Nenhuma meta ainda. Comece pela reserva de emergência — é a meta que protege todas as outras."));
+  }
+  S.metas.forEach((m, i) => {
+    const res = el("div");
+    const inp = (campo, tipo, rot) => el("div", { class: "campo", style: "margin:0" }, el("label", {}, rot),
+      el("input", { type: tipo, step: "0.01", value: m[campo] ?? "",
+        oninput: e => { m[campo] = e.target.value; salvar(); calcMeta(m, res); calcMetas(); } }));
+    const sel = el("div", { class: "campo", style: "margin:0" }, el("label", {}, "Prazo"),
+      el("select", { onchange: e => { m.prazo = e.target.value; salvar(); calcMetas(); } },
+        ...["Curto (até 1 ano)", "Médio (1 a 5 anos)", "Longo (mais de 5 anos)"]
+          .map(o => el("option", { selected: m.prazo === o }, o))));
+    c.append(el("div", { class: "card", style: "margin-bottom:12px;background:var(--panel-2)" },
+      el("div", { style: "display:flex;gap:10px;align-items:center;margin-bottom:12px" },
+        el("input", { value: m.nome || "", placeholder: "Qual é esse sonho?",
+          style: "font-weight:700;font-size:15px",
+          oninput: e => { m.nome = e.target.value; salvar(); } }),
+        el("button", { class: "btn sec mini", onclick: () => { S.metas.splice(i, 1); salvar(); renderMetas(); } }, "×")),
+      el("div", { class: "grade g4" }, inp("valor", "number", "Quanto vai custar (R$)"),
+        inp("guardado", "number", "Já guardei (R$)"), inp("data", "date", "Quando quero"), sel),
+      res));
+    calcMeta(m, res);
+  });
+  calcMetas();
+}
+function calcMeta(m, alvo) {
+  const valor = n(m.valor), guardado = n(m.guardado), falta = Math.max(0, valor - guardado);
+  let meses = null;
+  if (m.data) {
+    const d = new Date(m.data + "T00:00:00"), hoje = new Date();
+    meses = Math.max(1, Math.round((d - hoje) / (1000 * 60 * 60 * 24 * 30.44)));
+  }
+  const p = valor ? Math.min(100, (guardado / valor) * 100) : 0;
+  alvo.innerHTML = "";
+  alvo.append(
+    el("div", { style: "display:flex;justify-content:space-between;font-size:13px;margin:14px 0 4px;gap:10px;flex-wrap:wrap" },
+      el("span", {}, meses ? `Faltam ${falta ? brl(falta) : "R$ 0,00"} em ${meses} ${meses === 1 ? "mês" : "meses"}` : "Defina a data para calcular"),
+      el("strong", { class: "pos" }, meses && falta ? `guardar ${brl(falta / meses)}/mês` : pct(p) + " concluído")),
+    el("div", { class: "barra" }, el("i", { style: `width:${p}%` })));
+}
+function calcMetas() {
+  const total = S.metas.reduce((s, m) => s + n(m.valor), 0);
+  const guardado = S.metas.reduce((s, m) => s + n(m.guardado), 0);
+  let mensal = 0;
+  S.metas.forEach(m => {
+    if (!m.data) return;
+    const meses = Math.max(1, Math.round((new Date(m.data + "T00:00:00") - new Date()) / (1000 * 60 * 60 * 24 * 30.44)));
+    mensal += Math.max(0, n(m.valor) - n(m.guardado)) / meses;
+  });
+  const k = document.getElementById("kpisMetas"); k.innerHTML = "";
+  [["Soma dos sonhos", brl(total), `${S.metas.length} meta(s)`, ""],
+   ["Já guardado", brl(guardado), total ? pct((guardado / total) * 100) + " do total" : "—", "pos"],
+   ["Preciso guardar por mês", brl(mensal), "somando todas as metas com data", mensal > 0 ? "att" : ""]
+  ].forEach(([r, v, s, c]) => k.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + c }, v), el("div", { class: "sub" }, s))));
+  const renda = n(S.d.renda) || DADOS.mediaEntrada6m;
+  document.getElementById("notaMetas").textContent = mensal > 0
+    ? `Isso é ${pct((mensal / renda) * 100)} da sua renda de referência (${brl(renda)}). ` +
+      (mensal / renda > 0.3 ? "É bastante: vale esticar algum prazo ou reduzir um valor." : "É um ritmo viável se o mês fechar no azul.")
+    : "Coloque data em cada meta para o planner calcular o quanto guardar por mês.";
+
+  const tb = document.querySelector("#tbMapaAno tbody"); tb.innerHTML = "";
+  let tg = 0, tgu = 0, ti = 0, tr = 0;
+  MESES_PLANNER.forEach(m => {
+    const d = S.mapa[m.id] = S.mapa[m.id] || { ganhar: "", guardar: "", investir: "", real: "", como: "" };
+    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: d[campo],
+      oninput: e => { d[campo] = e.target.value; salvar(); calcMetas(); } });
+    tg += n(d.ganhar); tgu += n(d.guardar); ti += n(d.investir); tr += n(d.real);
+    tb.append(el("tr", {}, el("td", {}, m.rot), el("td", { class: "num" }, inp("ganhar")),
+      el("td", { class: "num" }, inp("guardar")), el("td", { class: "num" }, inp("investir")),
+      el("td", { class: "num" }, inp("real")),
+      el("td", {}, el("input", { value: d.como || "", oninput: e => { d.como = e.target.value; salvar(); } }))));
+  });
+  const tf = document.querySelector("#tbMapaAno tfoot"); tf.innerHTML = "";
+  tf.append(el("tr", {}, el("td", {}, "Total do ano"), el("td", { class: "num" }, brl(tg)),
+    el("td", { class: "num" }, brl(tgu)), el("td", { class: "num" }, brl(ti)),
+    el("td", { class: "num " + (tr >= tgu && tgu > 0 ? "pos" : "") }, brl(tr)), el("td", {}, "")));
+  salvar();
+}
+
+/* ---------------- 8. semana ---------------- */
+function semanaDados(mes, sem) {
+  S.semanas[mes] = S.semanas[mes] || {};
+  S.semanas[mes][sem] = S.semanas[mes][sem] || { foco: "", aprendizado: "", dias: DIAS.map(() => ({ e: "", s: "", nota: "" })) };
+  return S.semanas[mes][sem];
+}
+function renderSemana() {
+  const sd = semanaDados(S.mesSemana, S.semanaAtiva);
+  document.querySelectorAll("[data-sem]").forEach(i => {
+    i.value = sd[i.dataset.sem] || "";
+    i.oninput = e => { semanaDados(S.mesSemana, S.semanaAtiva)[i.dataset.sem] = e.target.value; salvar(); };
+  });
+  const tb = document.querySelector("#tbSemana tbody"); tb.innerHTML = "";
+  DIAS.forEach((dia, i) => {
+    const saldo = el("td", { class: "num" });
+    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: sd.dias[i][campo],
+      oninput: e => { sd.dias[i][campo] = e.target.value; salvar(); calcSemana(); } });
+    tb.append(el("tr", {}, el("td", {}, dia), el("td", { class: "num" }, inp("e")),
+      el("td", { class: "num" }, inp("s")), saldo,
+      el("td", {}, el("input", { value: sd.dias[i].nota || "",
+        oninput: e => { sd.dias[i].nota = e.target.value; salvar(); } }))));
+    tb.lastChild._saldo = saldo; tb.lastChild._d = sd.dias[i];
+  });
+  calcSemana();
+}
+function calcSemana() {
+  let te = 0, ts = 0;
+  document.querySelectorAll("#tbSemana tbody tr").forEach(tr => {
+    const e = n(tr._d.e), s = n(tr._d.s);
+    te += e; ts += s;
+    tr._saldo.textContent = (e || s) ? brl(e - s) : "";
+    tr._saldo.className = "num " + ((e || s) ? (e - s < 0 ? "neg" : "pos") : "");
+  });
+  const tf = document.querySelector("#tbSemana tfoot"); tf.innerHTML = "";
+  tf.append(el("tr", {}, el("td", {}, "Total da semana"), el("td", { class: "num" }, brl(te)),
+    el("td", { class: "num" }, brl(ts)),
+    el("td", { class: "num " + (te - ts < 0 ? "neg" : "pos") }, brl(te - ts)), el("td", {}, "")));
+}
+
+/* ---------------- 9. fechamento ---------------- */
+function fechaDados(id) {
+  S.fecha[id] = S.fecha[id] || { ganhei: "", gastei: "", guardei: "", investi: "", dividas: "",
+    vitoria: "", diferente: "", aprendi: "", proximo: "", nota: "" };
+  return S.fecha[id];
+}
+function renderFechamento() {
+  const fd = fechaDados(S.mesFecha);
+  document.querySelectorAll("[data-fec]").forEach(i => {
+    i.value = fd[i.dataset.fec] || "";
+    i.oninput = i.onchange = e => { fechaDados(S.mesFecha)[i.dataset.fec] = e.target.value; salvar(); calcFechamento(); };
+  });
+  calcFechamento();
+}
+function calcFechamento() {
+  const fd = fechaDados(S.mesFecha);
+  document.getElementById("pctGuardado").value = n(fd.ganhei)
+    ? pct((n(fd.guardei) / n(fd.ganhei)) * 100) : "—";
+  let g = 0, ga = 0, gu = 0, iv = 0, dv = 0;
+  MESES_PLANNER.forEach(m => {
+    const f = S.fecha[m.id]; if (!f) return;
+    g += n(f.ganhei); ga += n(f.gastei); gu += n(f.guardei); iv += n(f.investi); dv += n(f.dividas);
+  });
+  const k = document.getElementById("kpisAno"); k.innerHTML = "";
+  [["Ganhei no ano", brl(g), "somando os fechamentos", ""],
+   ["Gastei no ano", brl(ga), "", ""],
+   ["Sobrou", brl(g - ga), g - ga < 0 ? "ainda no vermelho" : "no azul", g - ga < 0 ? "neg" : "pos"],
+   ["Guardei", brl(gu), g ? pct((gu / g) * 100) + " do que ganhei" : "meta: 10%", "pos"],
+   ["Investi", brl(iv), "", "pos"],
+   ["Dívidas que paguei", brl(dv), "", "pos"]
+  ].forEach(([r, v, s, c]) => k.append(el("div", { class: "kpi" },
+    el("div", { class: "rot" }, r), el("div", { class: "val " + c }, v), el("div", { class: "sub" }, s))));
+  salvar();
+}
+
+/* ---------------- binds gerais ---------------- */
+function ligarCampos() {
+  document.querySelectorAll("[data-s]").forEach(i => {
+    const v = get(i.dataset.s);
+    if (v !== undefined && v !== null) i.value = v;
+    const h = e => {
+      set(i.dataset.s, e.target.value); salvar();
+      if (i.hasAttribute("data-calc")) recalcularTudo();
+    };
+    i.oninput = h; i.onchange = h;
+  });
+  const lh = document.getElementById("listaHabitos");
+  HABITOS.forEach((h, i) => {
+    const cb = el("input", { type: "checkbox", id: "hab" + i, onchange: e => {
+      S.habitos = S.habitos.filter(x => x !== i);
+      if (e.target.checked) S.habitos.push(i);
+      salvar();
+    } });
+    cb.checked = S.habitos.includes(i);
+    lh.append(el("li", {}, cb, el("label", { for: "hab" + i,
+      style: "margin:0;font-weight:400;color:var(--txt);font-size:14px" }, h)));
+  });
+}
+function montarSelects() {
+  [["selMes", "mesAtivo", () => { renderOrcamento(); renderContas(); }],
+   ["selMesSemana", "mesSemana", renderSemana],
+   ["selMesFecha", "mesFecha", renderFechamento]].forEach(([id, chave, fn]) => {
+    const s = document.getElementById(id);
+    MESES_PLANNER.forEach(m => s.append(el("option", { value: m.id, selected: S[chave] === m.id }, m.rot)));
+    s.onchange = e => { S[chave] = e.target.value; salvar(); fn(); };
+  });
+  const ss = document.getElementById("selSemana");
+  [1, 2, 3, 4, 5].forEach(i => ss.append(el("option", { value: i, selected: S.semanaAtiva === i }, "Semana " + i)));
+  ss.onchange = e => { S.semanaAtiva = +e.target.value; salvar(); renderSemana(); };
+}
+function recalcularTudo() {
+  renderDiagnostico(); calcOrcamento(); calcDividas(); calcReserva(); calcMetas(); calcFechamento();
+}
+
+/* ---------------- exportar / importar ---------------- */
+function exportar() {
+  const blob = new Blob([JSON.stringify(S, null, 1)], { type: "application/json" });
+  const a = el("a", { href: URL.createObjectURL(blob),
+    download: `planner-financeiro-${new Date().toISOString().slice(0, 10)}.json` });
+  document.body.append(a); a.click(); a.remove();
+}
+function importar(arquivo) {
+  const fr = new FileReader();
+  fr.onload = () => {
+    try {
+      S = Object.assign(estadoInicial(), JSON.parse(fr.result));
+      localStorage.setItem(CHAVE, JSON.stringify(S));
+      location.reload();
+    } catch (e) { alert("Não consegui ler esse arquivo. Ele precisa ser um JSON exportado por este planner."); }
+  };
+  fr.readAsText(arquivo);
+}
+
+/* ---------------- início ---------------- */
+document.getElementById("periodoTopo").textContent =
+  `Base real: ${DADOS.periodo.n} lançamentos · ${DADOS.periodo.ini} a ${DADOS.periodo.fim}`;
+montarNav();
+montarSelects();
+ligarCampos();
+renderPainel();
+renderDiagnostico();
+renderOrcamento();
+renderContas();
+renderDividas();
+renderReserva();
+renderMetas();
+renderSemana();
+renderFechamento();
+irPara(ABAS.some(([a]) => a === location.hash.slice(1)) ? location.hash.slice(1) : "painel");
+
+document.getElementById("btExportar").onclick = exportar;
+document.getElementById("btImportar").onclick = () => document.getElementById("arqImport").click();
+document.getElementById("arqImport").onchange = e => e.target.files[0] && importar(e.target.files[0]);
+document.getElementById("btImprimir").onclick = () => window.print();
+document.getElementById("btTema").onclick = () => {
+  const atual = document.documentElement.getAttribute("data-theme");
+  const escuro = atual ? atual === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", escuro ? "light" : "dark");
+  try { localStorage.setItem(CHAVE + ".tema", escuro ? "light" : "dark"); } catch (e) {}
+};
+try {
+  const t = localStorage.getItem(CHAVE + ".tema");
+  if (t) document.documentElement.setAttribute("data-theme", t);
+} catch (e) {}
+document.getElementById("btAddConta").onclick = () => {
+  contasDoMes(S.mesAtivo).push({ nome: "", valor: "", dia: "", pago: false, obs: "" }); salvar(); renderContas();
+};
+document.getElementById("btAddAssin").onclick = () => {
+  S.assinaturas.push({ nome: "", valor: "", usa: "sim", cancelar: false, acao: "" }); salvar(); renderContas();
+};
+document.getElementById("btAddDivida").onclick = () => {
+  S.dividas.push({ nome: "", saldo: "", parcela: "", juros: "", quitada: false }); salvar(); renderDividas();
+};
+document.getElementById("btAddMeta").onclick = () => {
+  S.metas.push({ nome: "", valor: "", guardado: "", data: "", prazo: "Curto (até 1 ano)" }); salvar(); renderMetas();
+};
+
+</script>
+</body>
+</html>
