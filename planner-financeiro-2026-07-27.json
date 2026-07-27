@@ -1,0 +1,499 @@
+{
+ "mesAtivo": "2026-08",
+ "mesSemana": "2026-08",
+ "semanaAtiva": 1,
+ "mesFecha": "2026-08",
+ "d": {
+  "renda": "2460",
+  "rendaFam": "4736.70",
+  "divida": "3.25481",
+  "guardado": "0",
+  "nome": "Déborah",
+  "data": "2026-07-27",
+  "sonho": "Sair do negativo e para de estourar os gastos todo mês",
+  "atrapalha": "A renda baixa e o padrão de vida "
+ },
+ "ratos": [
+  0,
+  4,
+  5,
+  6
+ ],
+ "score": [
+  4,
+  4,
+  1,
+  3,
+  2,
+  4,
+  5,
+  1
+ ],
+ "habitos": [
+  0,
+  2,
+  3,
+  4
+ ],
+ "acoes": [
+  {
+   "o": "reduzir cartões de crédito",
+   "q": "hoje",
+   "c": "Pierre"
+  },
+  {
+   "o": "buscar rendas extras ",
+   "q": "até o fim do ano",
+   "c": "em analise"
+  },
+  {
+   "o": "",
+   "q": "",
+   "c": ""
+  }
+ ],
+ "r": {
+  "gasto": "5322.35",
+  "tenho": "0",
+  "nivel": "3",
+  "porMes": "0",
+  "renda10": "5635.35",
+  "pct10": "0.2",
+  "dia10": "5",
+  "conta10": ""
+ },
+ "dv": {
+  "metodo": "aval",
+  "extra": ""
+ },
+ "dividas": [
+  {
+   "nome": "Jim.Com* Emanoel Gonçalves (parc. 5/11)",
+   "saldo": 2298.96,
+   "parcela": 383.16,
+   "juros": 0,
+   "quitada": false
+  },
+  {
+   "nome": "Emanoel Gonçalves Fer (parc. 10/12)",
+   "saldo": 685,
+   "parcela": 342.5,
+   "juros": 0,
+   "quitada": false
+  },
+  {
+   "nome": "Shein — 3 parcelamentos (3/5)",
+   "saldo": 296.72,
+   "parcela": 148.36,
+   "juros": 0,
+   "quitada": false
+  }
+ ],
+ "contas": {
+  "2026-08": [
+   {
+    "nome": "Aluguel",
+    "valor": 1300,
+    "dia": "10",
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Financiamento do veículo",
+    "valor": 1540,
+    "dia": "5",
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Seguro auto — BB Seguro Auto",
+    "valor": 393.06,
+    "dia": "10",
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Internet — Brava Telecomunicações",
+    "valor": 118,
+    "dia": 10,
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Energia — Energisa MT",
+    "valor": 83.41,
+    "dia": "5",
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Água — Águas Pontes e Lacerda",
+    "valor": 33.23,
+    "dia": 20,
+    "pago": false,
+    "obs": ""
+   },
+   {
+    "nome": "Celular — Recvivo",
+    "valor": 30,
+    "dia": 28,
+    "pago": false,
+    "obs": ""
+   }
+  ]
+ },
+ "assinaturas": [
+  {
+   "nome": "Google (DL*Google Pierre)",
+   "valor": 38.99,
+   "usa": "sim",
+   "cancelar": false,
+   "acao": ""
+  },
+  {
+   "nome": "Amazon Prime Canais",
+   "valor": 29.9,
+   "usa": "quase nunca",
+   "cancelar": true,
+   "acao": "Solicitei o cancelamento"
+  },
+  {
+   "nome": "Spotify",
+   "valor": 23.9,
+   "usa": "sim",
+   "cancelar": false,
+   "acao": ""
+  },
+  {
+   "nome": "Google One / Google Play",
+   "valor": 22.48,
+   "usa": "sim",
+   "cancelar": false,
+   "acao": ""
+  },
+  {
+   "nome": "Amazon Prime",
+   "valor": 19.89,
+   "usa": "às vezes",
+   "cancelar": false,
+   "acao": ""
+  },
+  {
+   "nome": "Amazon Ad Free",
+   "valor": 10,
+   "usa": "quase nunca",
+   "cancelar": true,
+   "acao": "Solicitei o cancelamento"
+  },
+  {
+   "nome": "iFood Club",
+   "valor": 5.95,
+   "usa": "às vezes",
+   "cancelar": false,
+   "acao": ""
+  },
+  {
+   "nome": "YouTube (DL*Google Youtub)",
+   "valor": 1.99,
+   "usa": "quase nunca",
+   "cancelar": false,
+   "acao": ""
+  }
+ ],
+ "metas": [
+  {
+   "nome": "Baby",
+   "valor": "8000",
+   "guardado": "0",
+   "data": "2027-07-05",
+   "prazo": "Curto (até 1 ano)"
+  },
+  {
+   "nome": "Viagem 2027",
+   "valor": "5000",
+   "guardado": "0",
+   "data": "2027-10-06",
+   "prazo": "Médio (1 a 5 anos)"
+  }
+ ],
+ "mapa": {
+  "2026-08": {
+   "ganhar": "",
+   "guardar": "60",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2026-09": {
+   "ganhar": "",
+   "guardar": "60",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2026-10": {
+   "ganhar": "",
+   "guardar": "60",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2026-11": {
+   "ganhar": "",
+   "guardar": "80",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2026-12": {
+   "ganhar": "",
+   "guardar": "100",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-01": {
+   "ganhar": "",
+   "guardar": "120",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-02": {
+   "ganhar": "",
+   "guardar": "140",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-03": {
+   "ganhar": "",
+   "guardar": "180",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-04": {
+   "ganhar": "",
+   "guardar": "200",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-05": {
+   "ganhar": "",
+   "guardar": "400",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-06": {
+   "ganhar": "",
+   "guardar": "600",
+   "investir": "",
+   "real": "",
+   "como": ""
+  },
+  "2027-07": {
+   "ganhar": "",
+   "guardar": "800",
+   "investir": "",
+   "real": "",
+   "como": ""
+  }
+ },
+ "mes": {
+  "2026-08": {
+   "foco": "Reduzir",
+   "metaGuardar": "0",
+   "metaCortar": "1000",
+   "rec": {
+    "salario": {
+     "p": "4736.70",
+     "a": "0"
+    },
+    "extra": {
+     "p": "",
+     "a": ""
+    },
+    "transf": {
+     "p": "1643.00",
+     "a": ""
+    },
+    "rend": {
+     "p": "",
+     "a": ""
+    },
+    "outros": {
+     "p": "",
+     "a": ""
+    }
+   },
+   "desp": {
+    "Moradia": {
+     "p": "1562.35",
+     "a": ""
+    },
+    "Transporte": {
+     "p": "2400.00",
+     "a": ""
+    },
+    "Alimentação": {
+     "p": "600",
+     "a": ""
+    },
+    "Saúde": {
+     "p": "600",
+     "a": ""
+    },
+    "Compras e lazer": {
+     "p": "1600",
+     "a": ""
+    },
+    "Dívidas e juros": {
+     "p": "80",
+     "a": ""
+    },
+    "Educação": {
+     "p": "200",
+     "a": ""
+    },
+    "Serviços e outros": {
+     "p": "700",
+     "a": ""
+    },
+    "Transferências enviadas": {
+     "p": "0",
+     "a": ""
+    }
+   }
+  }
+ },
+ "semanas": {
+  "2026-08": {
+   "1": {
+    "foco": "reduzir",
+    "aprendizado": "",
+    "dias": [
+     {
+      "e": "0",
+      "s": "0",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     },
+     {
+      "e": "",
+      "s": "",
+      "nota": ""
+     }
+    ]
+   }
+  }
+ },
+ "fecha": {
+  "2026-08": {
+   "ganhei": "",
+   "gastei": "",
+   "guardei": "",
+   "investi": "",
+   "dividas": "",
+   "vitoria": "",
+   "diferente": "",
+   "aprendi": "",
+   "proximo": "",
+   "nota": ""
+  }
+ },
+ "a": {
+  "habito": "",
+  "mudar": "",
+  "conquista": "",
+  "palavra": ""
+ },
+ "termometro": {
+  "2026-08": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2026-09": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2026-10": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2026-11": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2026-12": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-01": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-02": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-03": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-04": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-05": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-06": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  },
+  "2027-07": {
+   "div": "",
+   "res": "",
+   "inv": ""
+  }
+ }
+}
