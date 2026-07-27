@@ -53,6 +53,19 @@ Todos esses valores são editáveis: confirme os saldos no app do banco antes de
 8. **Semana** — registro diário de entrada e saída, com foco e aprendizado da semana.
 9. **Fechamento** — balanço do mês, reflexões e consolidação do ano.
 
+## O que é fixo você digita uma vez só
+
+Contas fixas e o *Previsto* do orçamento se repetem sozinhos: ao abrir um mês novo, o planner copia
+o que estava no último mês preenchido e mostra a faixa *"repetido de \<mês\>"* no topo. Valor e dia de
+vencimento vêm junto; o "paguei?", as observações e a coluna *Aconteceu* recomeçam em branco, porque
+esses mudam todo mês. Se algo fixo mudar (reajuste do aluguel, troca de plano), basta editar no mês —
+e a partir dali o novo valor é que passa a se repetir.
+
+## Como digitar valores
+
+Os campos de dinheiro aceitam o formato brasileiro: `3.254,81`, `3254,81`, `3.254` e `3254.81` são
+lidos corretamente. Antes só o ponto valia como decimal, então `3.254,81` virava R$ 3,25.
+
 ## Backup
 
 O botão *Exportar dados* gera um `.json` com tudo o que você preencheu. Guarde-o de tempos em tempos:

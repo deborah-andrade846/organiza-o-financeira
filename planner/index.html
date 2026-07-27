@@ -219,10 +219,10 @@ svg{display:block;max-width:100%}
     <div class="grade g3">
       <div class="campo"><label>Nome</label><input data-s="d.nome"></div>
       <div class="campo"><label>Data de hoje</label><input type="date" data-s="d.data"></div>
-      <div class="campo"><label>Renda líquida mensal (R$)</label><input type="number" step="0.01" data-s="d.renda" data-calc></div>
-      <div class="campo"><label>Renda total da família (R$)</label><input type="number" step="0.01" data-s="d.rendaFam"></div>
-      <div class="campo"><label>Total que devo hoje (R$)</label><input type="number" step="0.01" data-s="d.divida" data-calc></div>
-      <div class="campo"><label>Dinheiro guardado/investido (R$)</label><input type="number" step="0.01" data-s="d.guardado" data-calc></div>
+      <div class="campo"><label>Renda líquida mensal (R$)</label><input type="text" inputmode="decimal" data-s="d.renda" data-calc></div>
+      <div class="campo"><label>Renda total da família (R$)</label><input type="text" inputmode="decimal" data-s="d.rendaFam"></div>
+      <div class="campo"><label>Total que devo hoje (R$)</label><input type="text" inputmode="decimal" data-s="d.divida" data-calc></div>
+      <div class="campo"><label>Dinheiro guardado/investido (R$)</label><input type="text" inputmode="decimal" data-s="d.guardado" data-calc></div>
     </div>
     <div class="campo"><label>Meu maior sonho financeiro agora</label><textarea data-s="d.sonho"></textarea></div>
     <div class="campo"><label>O que mais me atrapalha com o dinheiro</label><textarea data-s="d.atrapalha"></textarea></div>
@@ -264,18 +264,21 @@ svg{display:block;max-width:100%}
 <section id="sec-orcamento" hidden>
   <div class="sec-cab">
     <h2>Orçamento mensal — previsto × realizado</h2>
-    <p>O <em>Previsto</em> já vem preenchido com a sua média real dos últimos 6 meses. Ajuste as metas,
-       registre o que aconteceu e veja a diferença na hora.</p>
+    <p>O <em>Previsto</em> começa com a sua média real dos últimos 6 meses e, a partir daí, cada mês novo
+       herda o previsto do mês anterior — o que é fixo você digita uma vez só. Registre o que aconteceu
+       e veja a diferença na hora.</p>
   </div>
 
   <div class="card">
     <div class="grade g4" style="align-items:end">
       <div class="campo" style="margin:0"><label>Mês do planner</label><select id="selMes"></select></div>
       <div class="campo" style="margin:0"><label>Foco principal do mês</label><input data-mes="foco"></div>
-      <div class="campo" style="margin:0"><label>Quero guardar (R$)</label><input type="number" step="0.01" data-mes="metaGuardar" data-calc></div>
-      <div class="campo" style="margin:0"><label>Quero cortar de gastos (R$)</label><input type="number" step="0.01" data-mes="metaCortar"></div>
+      <div class="campo" style="margin:0"><label>Quero guardar (R$)</label><input type="text" inputmode="decimal" data-mes="metaGuardar" data-calc></div>
+      <div class="campo" style="margin:0"><label>Quero cortar de gastos (R$)</label><input type="text" inputmode="decimal" data-mes="metaCortar"></div>
     </div>
   </div>
+
+  <div id="herancaOrcamento"></div>
 
   <div class="grade">
     <div class="card">
@@ -302,6 +305,8 @@ svg{display:block;max-width:100%}
     <p>Lista montada a partir dos débitos que se repetiram em pelo menos 5 meses do seu extrato.
        Marque o que já pagou e decida o que vale manter.</p>
   </div>
+
+  <div id="herancaContas"></div>
 
   <div class="card">
     <h3>Contas do mês <span id="rotMesContas" class="tag"></span></h3>
@@ -349,7 +354,7 @@ svg{display:block;max-width:100%}
             <option value="aval">Avalanche — maior juro primeiro (economiza mais)</option>
           </select></div>
         <div class="campo" style="margin:0"><label>Valor extra por mês (R$)</label>
-          <input type="number" step="0.01" data-s="dv.extra" data-calc></div>
+          <input type="text" inputmode="decimal" data-s="dv.extra" data-calc></div>
       </div>
       <div class="tab-rol"><table id="tbPlano"><thead><tr>
         <th class="num">#</th><th>Dívida</th><th class="num">Saldo</th><th class="num">Juros</th><th>Previsão de quitação</th>
@@ -384,11 +389,11 @@ svg{display:block;max-width:100%}
       <h3>Minha meta de reserva</h3>
       <div class="dupla">
         <div class="campo"><label>Gasto mensal de referência (R$)</label>
-          <input type="number" step="0.01" data-s="r.gasto" data-calc>
+          <input type="text" inputmode="decimal" data-s="r.gasto" data-calc>
           <p class="dica" style="margin:5px 0 0">Já vem com o seu custo de vida essencial
              (moradia + transporte + alimentação + saúde). Suba o valor se quiser uma reserva mais folgada.</p></div>
         <div class="campo"><label>Quanto já tenho guardado (R$)</label>
-          <input type="number" step="0.01" data-s="r.tenho" data-calc></div>
+          <input type="text" inputmode="decimal" data-s="r.tenho" data-calc></div>
         <div class="campo"><label>Nível que quero atingir</label>
           <select data-s="r.nivel" data-calc>
             <option value="1">Nível 1 — 1 mês de gastos (mínimo)</option>
@@ -396,7 +401,7 @@ svg{display:block;max-width:100%}
             <option value="6">Nível 3 — 6 meses (tranquilo)</option>
           </select></div>
         <div class="campo"><label>Quanto consigo guardar por mês (R$)</label>
-          <input type="number" step="0.01" data-s="r.porMes" data-calc></div>
+          <input type="text" inputmode="decimal" data-s="r.porMes" data-calc></div>
       </div>
       <div id="resReserva"></div>
     </div>
@@ -404,7 +409,7 @@ svg{display:block;max-width:100%}
       <h3>Meu compromisso com os 10%</h3>
       <div class="dupla">
         <div class="campo"><label>Minha renda mensal (R$)</label>
-          <input type="number" step="0.01" data-s="r.renda10" data-calc></div>
+          <input type="text" inputmode="decimal" data-s="r.renda10" data-calc></div>
         <div class="campo"><label>Percentual que vou guardar (%)</label>
           <input type="number" step="1" data-s="r.pct10" data-calc></div>
         <div class="campo"><label>Todo mês no dia</label><input type="number" min="1" max="31" data-s="r.dia10"></div>
@@ -485,11 +490,11 @@ svg{display:block;max-width:100%}
   <div class="card">
     <div class="campo" style="max-width:260px"><label>Mês</label><select id="selMesFecha"></select></div>
     <div class="grade g3">
-      <div class="campo"><label>Quanto ganhei (R$)</label><input type="number" step="0.01" data-fec="ganhei" data-calc></div>
-      <div class="campo"><label>Quanto gastei (R$)</label><input type="number" step="0.01" data-fec="gastei" data-calc></div>
-      <div class="campo"><label>Quanto guardei (R$)</label><input type="number" step="0.01" data-fec="guardei" data-calc></div>
-      <div class="campo"><label>Quanto investi (R$)</label><input type="number" step="0.01" data-fec="investi" data-calc></div>
-      <div class="campo"><label>Dívidas que paguei (R$)</label><input type="number" step="0.01" data-fec="dividas" data-calc></div>
+      <div class="campo"><label>Quanto ganhei (R$)</label><input type="text" inputmode="decimal" data-fec="ganhei" data-calc></div>
+      <div class="campo"><label>Quanto gastei (R$)</label><input type="text" inputmode="decimal" data-fec="gastei" data-calc></div>
+      <div class="campo"><label>Quanto guardei (R$)</label><input type="text" inputmode="decimal" data-fec="guardei" data-calc></div>
+      <div class="campo"><label>Quanto investi (R$)</label><input type="text" inputmode="decimal" data-fec="investi" data-calc></div>
+      <div class="campo"><label>Dívidas que paguei (R$)</label><input type="text" inputmode="decimal" data-fec="dividas" data-calc></div>
       <div class="campo"><label>% da renda que guardei</label><input id="pctGuardado" readonly></div>
     </div>
     <div class="grade g2">
@@ -722,7 +727,18 @@ function set(caminho, valor) {
 }
 
 /* ---------------- utilidades ---------------- */
-const n = v => { const x = parseFloat(String(v ?? "").replace(",", ".")); return isFinite(x) ? x : 0; };
+/* aceita 1.234,56 · 1234,56 · 1.234 · 1234.56 — o formato que se digita no Brasil */
+const n = v => {
+  if (typeof v === "number") return isFinite(v) ? v : 0;
+  let s = String(v ?? "").trim().replace(/\s|R\$/g, "");
+  if (!s) return 0;
+  const temVirgula = s.includes(","), temPonto = s.includes(".");
+  if (temVirgula && temPonto) s = s.replace(/\./g, "").replace(",", ".");
+  else if (temVirgula) s = s.replace(",", ".");
+  else if (temPonto && /^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "");
+  const x = parseFloat(s);
+  return isFinite(x) ? x : 0;
+};
 const brl = v => (v < 0 ? "-" : "") + "R$ " + Math.abs(v).toLocaleString("pt-BR",
   { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const brl0 = v => (v < 0 ? "-" : "") + "R$ " + Math.abs(Math.round(v)).toLocaleString("pt-BR");
@@ -952,12 +968,38 @@ function resultadoScore() {
 }
 
 /* ---------------- 3. orçamento ---------------- */
+/* Devolve o id do mês anterior mais recente que já tenha registro em `mapa`.
+   É o que faz o que é fixo se repetir sozinho de um mês para o outro. */
+function mesAnteriorCom(mapa, id) {
+  const i = MESES_PLANNER.findIndex(m => m.id === id);
+  for (let k = i - 1; k >= 0; k--) if (mapa[MESES_PLANNER[k].id]) return MESES_PLANNER[k].id;
+  return null;
+}
 function mesDados(id) {
-  S.mes[id] = S.mes[id] || { foco: "", metaGuardar: "", metaCortar: "", rec: {}, desp: {} };
+  if (!S.mes[id]) {
+    const ant = mesAnteriorCom(S.mes, id);
+    const base = ant ? S.mes[ant] : null;
+    S.mes[id] = { foco: "", metaGuardar: base ? base.metaGuardar : "",
+                  metaCortar: base ? base.metaCortar : "", rec: {}, desp: {}, herdadoDe: ant };
+    /* o previsto é fixo e vem junto; o "aconteceu" começa sempre em branco */
+    if (base) {
+      for (const [k, v] of Object.entries(base.rec)) S.mes[id].rec[k] = { p: v.p, a: "" };
+      for (const [k, v] of Object.entries(base.desp)) S.mes[id].desp[k] = { p: v.p, a: "" };
+    }
+  }
   return S.mes[id];
+}
+/* Faixa "herdado de X" mostrada no topo das telas que repetem valores fixos */
+function marcaHeranca(alvo, ant, frase) {
+  alvo.innerHTML = "";
+  if (!ant) return;
+  alvo.append(el("div", { class: "aviso", style: "margin:0 0 14px" },
+    el("span", {}, frase + " de "), el("strong", {}, rotuloMes(ant)),
+    el("span", {}, " — o que mudou neste mês é só editar.")));
 }
 function renderOrcamento() {
   const md = mesDados(S.mesAtivo);
+  marcaHeranca(document.getElementById("herancaOrcamento"), md.herdadoDe, "Orçamento previsto repetido");
   document.querySelectorAll("[data-mes]").forEach(i => {
     i.value = md[i.dataset.mes] || "";
     i.oninput = e => { mesDados(S.mesAtivo)[i.dataset.mes] = e.target.value; salvar(); calcOrcamento(); };
@@ -977,7 +1019,7 @@ function renderOrcamento() {
 }
 function linhaOrc(rot, obj) {
   const dif = el("td", { class: "num" });
-  const mk = campo => el("input", { type: "number", step: "0.01", class: "num", value: obj[campo] ?? "",
+  const mk = campo => el("input", { type: "text", inputmode: "decimal", class: "num", value: obj[campo] ?? "",
     oninput: e => { obj[campo] = e.target.value; salvar(); calcOrcamento(); } });
   const tr = el("tr", {}, el("td", {}, rot), el("td", { class: "num" }, mk("p")), el("td", { class: "num" }, mk("a")), dif);
   tr._dif = dif; tr._obj = obj;
@@ -1022,38 +1064,44 @@ function calcOrcamento() {
 /* ---------------- 4. contas e assinaturas ---------------- */
 function contasDoMes(id) {
   if (!S.contas[id]) {
-    S.contas[id] = DADOS.contasFixas.map(c => ({ ...c, pago: false, obs: "" }));
+    const ant = mesAnteriorCom(S.contas, id);
+    const base = ant ? S.contas[ant] : DADOS.contasFixas;
+    /* nome, valor e vencimento são fixos; "paguei" e observações recomeçam */
+    S.contas[id] = base.map(c => ({ nome: c.nome, valor: c.valor, dia: c.dia, pago: false, obs: "" }));
+    S.contasHerdadas = S.contasHerdadas || {};
+    S.contasHerdadas[id] = ant;
   }
   return S.contas[id];
 }
 function renderContas() {
   document.getElementById("rotMesContas").textContent = rotuloMes(S.mesAtivo);
   const lista = contasDoMes(S.mesAtivo);
+  marcaHeranca(document.getElementById("herancaContas"), (S.contasHerdadas || {})[S.mesAtivo], "Contas fixas repetidas");
   const tb = document.querySelector("#tbContas tbody"); tb.innerHTML = "";
   lista.forEach((c, i) => {
-    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
-      class: tipo === "number" ? "num" : "", value: c[campo] ?? "",
+    const inp = (campo, tipo) => el("input", { type: tipo === "dia" ? "number" : "text",
+      inputmode: tipo ? "decimal" : null, class: tipo ? "num" : "", value: c[campo] ?? "",
       oninput: e => { c[campo] = tipo === "number" ? e.target.value : e.target.value; salvar(); calcContas(); } });
     const cb = el("input", { type: "checkbox", onchange: e => { c.pago = e.target.checked; salvar(); calcContas(); } });
     cb.checked = !!c.pago;
     tb.append(el("tr", { class: c.pago ? "risc" : "" },
-      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "number")),
-      el("td", { class: "num" }, inp("dia", "number")), el("td", {}, cb),
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "dinheiro")),
+      el("td", { class: "num" }, inp("dia", "dia")), el("td", {}, cb),
       el("td", {}, inp("obs")),
       el("td", {}, el("button", { class: "btn sec mini", onclick: () => { lista.splice(i, 1); salvar(); renderContas(); } }, "×"))));
   });
   if (!S.assinaturas) S.assinaturas = DADOS.assinaturas.map(a => ({ ...a, usa: "sim", cancelar: false, acao: "" }));
   const ta = document.querySelector("#tbAssinaturas tbody"); ta.innerHTML = "";
   S.assinaturas.forEach((a, i) => {
-    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
-      class: tipo === "number" ? "num" : "", value: a[campo] ?? "",
+    const inp = (campo, tipo) => el("input", { type: "text",
+      inputmode: tipo ? "decimal" : null, class: tipo ? "num" : "", value: a[campo] ?? "",
       oninput: e => { a[campo] = e.target.value; salvar(); calcContas(); } });
     const sel = el("select", { onchange: e => { a.usa = e.target.value; salvar(); } },
       ...["sim", "às vezes", "quase nunca"].map(o => el("option", { selected: a.usa === o }, o)));
     const cb = el("input", { type: "checkbox", onchange: e => { a.cancelar = e.target.checked; salvar(); calcContas(); } });
     cb.checked = !!a.cancelar;
     ta.append(el("tr", { class: a.cancelar ? "risc" : "" },
-      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "number")),
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("valor", "dinheiro")),
       el("td", {}, sel), el("td", {}, cb), el("td", {}, inp("acao")),
       el("td", {}, el("button", { class: "btn sec mini", onclick: () => { S.assinaturas.splice(i, 1); salvar(); renderContas(); } }, "×"))));
   });
@@ -1084,14 +1132,14 @@ function calcContas() {
 function renderDividas() {
   const tb = document.querySelector("#tbDividas tbody"); tb.innerHTML = "";
   S.dividas.forEach((d, i) => {
-    const inp = (campo, tipo) => el("input", { type: tipo || "text", step: "0.01",
-      class: tipo === "number" ? "num" : "", value: d[campo] ?? "",
+    const inp = (campo, tipo) => el("input", { type: "text",
+      inputmode: tipo ? "decimal" : null, class: tipo ? "num" : "", value: d[campo] ?? "",
       oninput: e => { d[campo] = e.target.value; salvar(); calcDividas(); } });
     const cb = el("input", { type: "checkbox", onchange: e => { d.quitada = e.target.checked; salvar(); renderDividas(); } });
     cb.checked = !!d.quitada;
     tb.append(el("tr", { class: d.quitada ? "risc" : "" },
-      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("saldo", "number")),
-      el("td", { class: "num" }, inp("parcela", "number")), el("td", { class: "num" }, inp("juros", "number")),
+      el("td", {}, inp("nome")), el("td", { class: "num" }, inp("saldo", "dinheiro")),
+      el("td", { class: "num" }, inp("parcela", "dinheiro")), el("td", { class: "num" }, inp("juros", "dinheiro")),
       el("td", {}, cb),
       el("td", {}, el("button", { class: "btn sec mini", onclick: () => { S.dividas.splice(i, 1); salvar(); renderDividas(); } }, "×"))));
   });
@@ -1153,7 +1201,7 @@ function renderReserva() {
   MESES_PLANNER.forEach(m => {
     const t = S.termometro[m.id] = S.termometro[m.id] || { div: "", res: "", inv: "" };
     const pl = el("td", { class: "num" });
-    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: t[campo],
+    const inp = campo => el("input", { type: "text", inputmode: "decimal", class: "num", value: t[campo],
       oninput: e => { t[campo] = e.target.value; salvar(); atualizaLinhaTerm(t, pl); graficoEvolucao(); } });
     tb.append(el("tr", {}, el("td", {}, m.rot), el("td", { class: "num" }, inp("div")),
       el("td", { class: "num" }, inp("res")), el("td", { class: "num" }, inp("inv")), pl));
@@ -1226,7 +1274,8 @@ function renderMetas() {
   S.metas.forEach((m, i) => {
     const res = el("div");
     const inp = (campo, tipo, rot) => el("div", { class: "campo", style: "margin:0" }, el("label", {}, rot),
-      el("input", { type: tipo, step: "0.01", value: m[campo] ?? "",
+      el("input", { type: tipo === "date" ? "date" : "text",
+        inputmode: tipo === "date" ? null : "decimal", value: m[campo] ?? "",
         oninput: e => { m[campo] = e.target.value; salvar(); calcMeta(m, res); calcMetas(); } }));
     const sel = el("div", { class: "campo", style: "margin:0" }, el("label", {}, "Prazo"),
       el("select", { onchange: e => { m.prazo = e.target.value; salvar(); calcMetas(); } },
@@ -1238,8 +1287,8 @@ function renderMetas() {
           style: "font-weight:700;font-size:15px",
           oninput: e => { m.nome = e.target.value; salvar(); } }),
         el("button", { class: "btn sec mini", onclick: () => { S.metas.splice(i, 1); salvar(); renderMetas(); } }, "×")),
-      el("div", { class: "grade g4" }, inp("valor", "number", "Quanto vai custar (R$)"),
-        inp("guardado", "number", "Já guardei (R$)"), inp("data", "date", "Quando quero"), sel),
+      el("div", { class: "grade g4" }, inp("valor", "dinheiro", "Quanto vai custar (R$)"),
+        inp("guardado", "dinheiro", "Já guardei (R$)"), inp("data", "date", "Quando quero"), sel),
       res));
     calcMeta(m, res);
   });
@@ -1285,7 +1334,7 @@ function calcMetas() {
   let tg = 0, tgu = 0, ti = 0, tr = 0;
   MESES_PLANNER.forEach(m => {
     const d = S.mapa[m.id] = S.mapa[m.id] || { ganhar: "", guardar: "", investir: "", real: "", como: "" };
-    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: d[campo],
+    const inp = campo => el("input", { type: "text", inputmode: "decimal", class: "num", value: d[campo],
       oninput: e => { d[campo] = e.target.value; salvar(); calcMetas(); } });
     tg += n(d.ganhar); tgu += n(d.guardar); ti += n(d.investir); tr += n(d.real);
     tb.append(el("tr", {}, el("td", {}, m.rot), el("td", { class: "num" }, inp("ganhar")),
@@ -1315,7 +1364,7 @@ function renderSemana() {
   const tb = document.querySelector("#tbSemana tbody"); tb.innerHTML = "";
   DIAS.forEach((dia, i) => {
     const saldo = el("td", { class: "num" });
-    const inp = campo => el("input", { type: "number", step: "0.01", class: "num", value: sd.dias[i][campo],
+    const inp = campo => el("input", { type: "text", inputmode: "decimal", class: "num", value: sd.dias[i][campo],
       oninput: e => { sd.dias[i][campo] = e.target.value; salvar(); calcSemana(); } });
     tb.append(el("tr", {}, el("td", {}, dia), el("td", { class: "num" }, inp("e")),
       el("td", { class: "num" }, inp("s")), saldo,
